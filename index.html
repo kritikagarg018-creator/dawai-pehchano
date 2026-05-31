@@ -443,9 +443,29 @@ function speakMedicine(medicineKey, lang) {
   if (!info) return;
   const taken = allSlotsTaken(medicineKey);
   const partial = !taken && someSlotsTaken(medicineKey);
-  const status = lang === 'hi'
-    ? (taken ? 'आज की सभी खुराकें ले ली गई हैं। शाबाश!' : partial ? 'कुछ खुराक अभी बाकी है।' : 'आज की खुराक अभी नहीं ली।')
-    : (taken ? "All doses taken today. Well done!" : partial ? "Some doses still remaining." : "Dose not yet taken today.");
+
+  let status = '';
+  if (taken) {
+    status = lang === 'hi' ? 'आज की सभी खुराकें ले ली गई हैं। शाबाश!' : 'All doses taken today. Well done!';
+  } else if (partial) {
+    const pendingSlots = info.slots.filter(s => !hasTakenSlot(medicineKey, s.id));
+    if (lang === 'hi') {
+      const pendingLabels = pendingSlots.map(s => s.label.split('·')[0].trim() + ' ' + s.time + ' की खुराक बाकी है।').join(' ');
+      status = pendingLabels;
+    } else {
+      const pendingLabels = pendingSlots.map(s => s.label.split('·')[1].trim() + ' dose at ' + s.time + ' is still pending.').join(' ');
+      status = pendingLabels;
+    }
+  } else {
+    if (lang === 'hi') {
+      const allSlots = info.slots.map(s => s.label.split('·')[0].trim() + ' ' + s.time).join(' और ');
+      status = allSlots + ' की खुराक अभी नहीं ली।';
+    } else {
+      const allSlots = info.slots.map(s => s.label.split('·')[1].trim() + ' at ' + s.time).join(' and ');
+      status = 'Doses at ' + allSlots + ' not yet taken.';
+    }
+  }
+
   speak((lang === 'hi' ? info.scheduleHindi : info.scheduleEnglish) + " " + status, lang);
 }
 
