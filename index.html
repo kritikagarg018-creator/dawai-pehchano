@@ -9,219 +9,102 @@
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --saffron: #FF6B00;
-      --cream: #FFF8EE;
-      --deep: #1A0F00;
-      --bark: #5C3A1E;
-      --leaf: #2D6A4F;
-      --leaf-light: #52B788;
-      --card-bg: #FFFDF7;
-      --shadow: 0 8px 32px rgba(92,58,30,0.13);
+      --saffron: #FF6B00; --cream: #FFF8EE; --deep: #1A0F00;
+      --bark: #5C3A1E; --leaf: #2D6A4F; --leaf-light: #52B788;
+      --card-bg: #FFFDF7; --shadow: 0 8px 32px rgba(92,58,30,0.13);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--cream);
-      font-family: 'DM Mono', monospace;
-      color: var(--deep);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 0 48px 0;
-      overflow-x: hidden;
-    }
-    .top-band {
-      width: 100%; height: 7px;
-      background: repeating-linear-gradient(90deg,
-        var(--saffron) 0px, var(--saffron) 24px,
-        #fff 24px, #fff 28px,
-        var(--leaf) 28px, var(--leaf) 52px,
-        #fff 52px, #fff 56px);
-    }
-    header {
-      width: 100%; max-width: 640px;
-      padding: 28px 24px 0 24px;
-      display: flex; flex-direction: column;
-      align-items: center; position: relative;
-    }
-    .lang-toggle {
-      position: absolute; top: 28px; right: 24px;
-      display: flex; background: rgba(92,58,30,0.08);
-      border-radius: 99px; padding: 3px; gap: 2px;
-    }
-    .lang-btn {
-      padding: 5px 12px; border: none; border-radius: 99px;
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      cursor: pointer; background: transparent; color: var(--bark);
-      transition: all 0.2s; letter-spacing: 0.05em;
-    }
+    body { background: var(--cream); font-family: 'DM Mono', monospace; color: var(--deep); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 0 48px 0; overflow-x: hidden; }
+    .top-band { width: 100%; height: 7px; background: repeating-linear-gradient(90deg, var(--saffron) 0px, var(--saffron) 24px, #fff 24px, #fff 28px, var(--leaf) 28px, var(--leaf) 52px, #fff 52px, #fff 56px); }
+    header { width: 100%; max-width: 640px; padding: 28px 24px 0 24px; display: flex; flex-direction: column; align-items: center; position: relative; }
+    .lang-toggle { position: absolute; top: 28px; right: 24px; display: flex; background: rgba(92,58,30,0.08); border-radius: 99px; padding: 3px; gap: 2px; }
+    .lang-btn { padding: 5px 12px; border: none; border-radius: 99px; font-family: 'DM Mono', monospace; font-size: 0.72rem; cursor: pointer; background: transparent; color: var(--bark); transition: all 0.2s; }
     .lang-btn.active { background: var(--saffron); color: #fff; font-weight: 500; }
-    .app-title {
-      font-family: 'Tiro Devanagari Hindi', serif;
-      font-size: clamp(2rem, 6vw, 3rem);
-      color: var(--saffron); line-height: 1.1;
-    }
-    .app-subtitle {
-      font-size: 0.75rem; color: var(--bark);
-      letter-spacing: 0.18em; text-transform: uppercase;
-      margin-top: 5px; opacity: 0.8;
-    }
-    .card {
-      background: var(--card-bg); border-radius: 24px;
-      box-shadow: var(--shadow); width: 100%; max-width: 580px;
-      margin: 24px 16px 0 16px; padding: 24px 20px 28px 20px;
-      border: 1.5px solid rgba(92,58,30,0.08);
-      transition: border-color 0.4s, box-shadow 0.4s;
-    }
-    .card.confirmed {
-      border-color: var(--leaf-light);
-      box-shadow: 0 8px 32px rgba(82,183,136,0.18);
-    }
-    .camera-wrapper {
-      position: relative; width: 100%; aspect-ratio: 4/3;
-      background: var(--deep); border-radius: 16px; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
+    .app-title { font-family: 'Tiro Devanagari Hindi', serif; font-size: clamp(2rem, 6vw, 3rem); color: var(--saffron); line-height: 1.1; }
+    .app-subtitle { font-size: 0.75rem; color: var(--bark); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 5px; opacity: 0.8; }
+
+    .rx-summary { background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); width: 100%; max-width: 580px; margin: 20px 16px 0 16px; padding: 20px; border: 1.5px solid rgba(92,58,30,0.08); }
+    .rx-title { font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.05rem; color: var(--bark); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+    .rx-speak-btn { padding: 6px 14px; background: var(--leaf); color: #fff; border: none; border-radius: 99px; font-family: 'Tiro Devanagari Hindi', serif; font-size: 0.8rem; cursor: pointer; }
+    .rx-row { display: flex; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(92,58,30,0.07); gap: 10px; }
+    .rx-row:last-child { border-bottom: none; }
+    .rx-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .rx-dot.all-taken { background: var(--leaf-light); }
+    .rx-dot.partial { background: #f4c261; }
+    .rx-dot.pending { background: rgba(255,107,0,0.4); }
+    .rx-info { flex: 1; }
+    .rx-name { font-size: 0.82rem; font-weight: 500; color: var(--deep); }
+    .rx-schedule { font-size: 0.72rem; color: var(--bark); opacity: 0.7; margin-top: 2px; }
+    .rx-status { font-size: 0.72rem; text-align: right; flex-shrink: 0; }
+    .rx-status.all-taken { color: var(--leaf); }
+    .rx-status.partial { color: #c8870a; }
+    .rx-status.pending { color: var(--saffron); }
+
+    .card { background: var(--card-bg); border-radius: 24px; box-shadow: var(--shadow); width: 100%; max-width: 580px; margin: 16px 16px 0 16px; padding: 24px 20px 28px 20px; border: 1.5px solid rgba(92,58,30,0.08); transition: border-color 0.4s, box-shadow 0.4s; }
+    .card.confirmed { border-color: var(--leaf-light); box-shadow: 0 8px 32px rgba(82,183,136,0.18); }
+    .camera-wrapper { position: relative; width: 100%; aspect-ratio: 4/3; background: var(--deep); border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     #webcam-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
-    #webcam-container canvas { width: 100% !important; height: 100% !important; object-fit: cover; }
-    .camera-placeholder {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 12px; color: rgba(255,255,255,0.5);
-      font-size: 0.85rem; text-align: center; padding: 20px; z-index: 1;
-    }
+    #webcam-container canvas, #webcam-container video { width: 100% !important; height: 100% !important; object-fit: cover; }
+    .camera-placeholder { display: flex; flex-direction: column; align-items: center; gap: 12px; color: rgba(255,255,255,0.5); font-size: 0.85rem; text-align: center; padding: 20px; z-index: 1; }
     .camera-icon { font-size: 3rem; opacity: 0.4; }
-    .scan-line {
-      position: absolute; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--saffron), transparent);
-      animation: scan 2s linear infinite; display: none; z-index: 10;
-    }
-    @keyframes scan {
-      0% { top: 8%; opacity: 0; } 10% { opacity: 1; }
-      90% { opacity: 1; } 100% { top: 92%; opacity: 0; }
-    }
+    .scan-line { position: absolute; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--saffron), transparent); animation: scan 2s linear infinite; display: none; z-index: 10; }
+    @keyframes scan { 0% { top: 8%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 92%; opacity: 0; } }
     .scanning .scan-line { display: block; }
     .corner { position: absolute; width: 24px; height: 24px; z-index: 5; }
     .corner-tl { top: 10px; left: 10px; border-top: 3px solid var(--saffron); border-left: 3px solid var(--saffron); border-radius: 4px 0 0 0; }
     .corner-tr { top: 10px; right: 10px; border-top: 3px solid var(--saffron); border-right: 3px solid var(--saffron); border-radius: 0 4px 0 0; }
     .corner-bl { bottom: 10px; left: 10px; border-bottom: 3px solid var(--saffron); border-left: 3px solid var(--saffron); border-radius: 0 0 0 4px; }
     .corner-br { bottom: 10px; right: 10px; border-bottom: 3px solid var(--saffron); border-right: 3px solid var(--saffron); border-radius: 0 0 4px 0; }
-    .status-badge {
-      position: absolute; bottom: 12px; left: 50%;
-      transform: translateX(-50%); padding: 7px 18px;
-      border-radius: 99px; font-size: 0.78rem; z-index: 20;
-      white-space: nowrap; transition: all 0.3s; display: none;
-    }
+    .status-badge { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); padding: 7px 18px; border-radius: 99px; font-size: 0.78rem; z-index: 20; white-space: nowrap; transition: all 0.3s; display: none; }
     .status-badge.scanning { background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.85); display: block; }
     .status-badge.found { background: rgba(255,107,0,0.85); color: #fff; display: block; }
     .status-badge.confirmed { background: rgba(45,106,79,0.9); color: #fff; display: block; }
-    #startBtn {
-      width: 100%; margin-top: 18px; padding: 18px 24px;
-      background: var(--saffron); color: #fff; border: none;
-      border-radius: 14px; font-family: 'Tiro Devanagari Hindi', serif;
-      font-size: 1.3rem; cursor: pointer; transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(255,107,0,0.25);
-    }
+
+    #startBtn { width: 100%; margin-top: 18px; padding: 18px 24px; background: var(--saffron); color: #fff; border: none; border-radius: 14px; font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.3rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(255,107,0,0.25); }
     #startBtn:hover { background: #e05a00; transform: translateY(-2px); }
     #startBtn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+
     #result-area { margin-top: 22px; display: none; }
-    .result-label {
-      font-size: 0.68rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--bark);
-      opacity: 0.65; margin-bottom: 6px;
-    }
-    .medicine-name {
-      font-family: 'Tiro Devanagari Hindi', serif;
-      font-size: clamp(1.8rem, 5.5vw, 2.6rem);
-      color: var(--leaf); line-height: 1.15;
-      min-height: 3rem; transition: all 0.3s;
-    }
-    .medicine-hindi {
-      font-family: 'Tiro Devanagari Hindi', serif;
-      font-size: 1.05rem; color: var(--bark);
-      margin-top: 6px; line-height: 1.6; white-space: pre-line;
-    }
+    .result-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bark); opacity: 0.65; margin-bottom: 6px; }
+    .medicine-name { font-family: 'Tiro Devanagari Hindi', serif; font-size: clamp(1.8rem, 5.5vw, 2.6rem); color: var(--leaf); line-height: 1.15; min-height: 3rem; }
+    .medicine-hindi { font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.05rem; color: var(--bark); margin-top: 6px; line-height: 1.6; white-space: pre-line; }
     .bars-section { margin-top: 16px; }
     .hindi-mode .bars-section { display: none; }
     .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
     .bar-label { font-size: 0.65rem; width: 90px; color: var(--bark); flex-shrink: 0; }
     .bar-track { flex: 1; height: 10px; background: rgba(92,58,30,0.08); border-radius: 99px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 99px; transition: width 0.35s cubic-bezier(0.4,0,0.2,1); background: var(--leaf-light); }
+    .bar-fill { height: 100%; border-radius: 99px; transition: width 0.35s; background: var(--leaf-light); }
     .bar-fill.top { background: var(--saffron); }
     .bar-pct { font-size: 0.7rem; width: 36px; text-align: right; color: var(--bark); flex-shrink: 0; }
-    .dose-card { margin-top: 18px; padding: 14px 16px; border-radius: 14px; display: none; }
-    .dose-card.taken { background: rgba(45,106,79,0.08); border: 1.5px solid rgba(45,106,79,0.2); }
-    .dose-card.not-taken { background: rgba(255,107,0,0.07); border: 1.5px solid rgba(255,107,0,0.2); }
-    .dose-text { font-family: 'Tiro Devanagari Hindi', serif; font-size: 1rem; line-height: 1.5; }
-    .dose-card.taken .dose-text { color: var(--leaf); }
-    .dose-card.not-taken .dose-text { color: var(--saffron); }
-    #markTakenBtn {
-      margin-top: 10px; padding: 10px 20px;
-      background: var(--saffron); color: #fff; border: none;
-      border-radius: 10px; font-family: 'Tiro Devanagari Hindi', serif;
-      font-size: 1rem; cursor: pointer; display: none; transition: background 0.2s;
-    }
-    #markTakenBtn:hover { background: #e05a00; }
+
+    .dose-slots { margin-top: 18px; display: none; }
+    .slots-title { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bark); opacity: 0.6; margin-bottom: 10px; }
+    .slot-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: 12px; margin-bottom: 8px; border: 1.5px solid rgba(92,58,30,0.1); gap: 10px; }
+    .slot-row.taken { background: rgba(45,106,79,0.07); border-color: rgba(45,106,79,0.2); }
+    .slot-row.pending { background: rgba(255,107,0,0.05); border-color: rgba(255,107,0,0.15); }
+    .slot-info { flex: 1; }
+    .slot-time { font-family: 'Tiro Devanagari Hindi', serif; font-size: 0.95rem; color: var(--deep); }
+    .slot-food { font-size: 0.75rem; color: var(--bark); opacity: 0.7; margin-top: 3px; }
+    .slot-taken-time { font-size: 0.72rem; color: var(--leaf); margin-top: 3px; }
+    .slot-mark-btn { padding: 8px 16px; background: var(--saffron); color: #fff; border: none; border-radius: 9px; font-family: 'Tiro Devanagari Hindi', serif; font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
+    .slot-taken-badge { font-family: 'Tiro Devanagari Hindi', serif; font-size: 0.9rem; color: var(--leaf); white-space: nowrap; }
+
     .speak-buttons { display: none; gap: 10px; margin-top: 16px; }
     .speak-buttons.visible { display: flex; }
-    #speakHindiBtn {
-      flex: 1; padding: 15px 14px; background: var(--leaf); color: #fff;
-      border: none; border-radius: 14px; font-family: 'Tiro Devanagari Hindi', serif;
-      font-size: 1.1rem; cursor: pointer; transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(45,106,79,0.18);
-    }
-    #speakHindiBtn:hover { background: #235c41; transform: translateY(-2px); }
-    #speakEnglishBtn {
-      flex: 1; padding: 15px 14px; background: var(--bark); color: #fff;
-      border: none; border-radius: 14px; font-family: 'DM Mono', monospace;
-      font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(92,58,30,0.15); letter-spacing: 0.03em;
-    }
-    #speakEnglishBtn:hover { background: #3d2510; transform: translateY(-2px); }
-    @keyframes speaking-pulse {
-      0%, 100% { opacity: 1; } 50% { opacity: 0.6; }
-    }
+    #speakHindiBtn { flex: 1; padding: 15px 14px; background: var(--leaf); color: #fff; border: none; border-radius: 14px; font-family: 'Tiro Devanagari Hindi', serif; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; }
+    #speakHindiBtn:hover { background: #235c41; }
+    #speakEnglishBtn { flex: 1; padding: 15px 14px; background: var(--bark); color: #fff; border: none; border-radius: 14px; font-family: 'DM Mono', monospace; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+    #speakEnglishBtn:hover { background: #3d2510; }
+    @keyframes speaking-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
     .speaking { animation: speaking-pulse 0.8s infinite; }
-    .history-card {
-      margin-top: 20px; padding: 16px;
-      background: rgba(92,58,30,0.04);
-      border-radius: 14px;
-      border: 1.5px solid rgba(92,58,30,0.08);
-      display: none;
-    }
-    .history-card.visible { display: block; }
-    .history-title {
-      font-size: 0.68rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--bark);
-      opacity: 0.6; margin-bottom: 10px;
-    }
-    .history-row {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(92,58,30,0.07);
-      font-size: 0.78rem; gap: 8px;
-    }
-    .history-row:last-child { border-bottom: none; }
-    .history-medicine { color: var(--deep); flex: 1; }
-    .history-time { color: var(--bark); opacity: 0.6; font-size: 0.7rem; flex-shrink: 0; }
-    .history-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .history-dot.taken { background: var(--leaf-light); }
-    .history-dot.not-taken { background: rgba(92,58,30,0.2); }
-    #bottomStatus {
-      margin-top: 12px; font-size: 0.76rem;
-      color: var(--bark); opacity: 0.6;
-      text-align: center; min-height: 18px; letter-spacing: 0.04em;
-    }
-    footer {
-      margin-top: 32px; font-size: 0.68rem; color: var(--bark);
-      opacity: 0.4; text-align: center; letter-spacing: 0.1em; text-transform: uppercase;
-    }
+
+    #bottomStatus { margin-top: 12px; font-size: 0.76rem; color: var(--bark); opacity: 0.6; text-align: center; min-height: 18px; }
+    footer { margin-top: 32px; font-size: 0.68rem; color: var(--bark); opacity: 0.4; text-align: center; letter-spacing: 0.1em; text-transform: uppercase; }
     .en-text { transition: opacity 0.3s; }
     .hindi-mode .en-text { display: none; }
   </style>
 </head>
 <body>
-
 <div class="top-band"></div>
 
 <header>
@@ -233,6 +116,14 @@
   <div class="app-subtitle en-text">Dawai Pehchano · Medicine Identifier</div>
 </header>
 
+<div class="rx-summary">
+  <div class="rx-title">
+    <span>आज की दवाइयाँ <span class="en-text">· Today's Medicines</span></span>
+    <button class="rx-speak-btn" onclick="speakFullSchedule()">🔊 सुनें</button>
+  </div>
+  <div id="rxList"></div>
+</div>
+
 <div class="card" id="mainCard">
   <div class="camera-wrapper" id="cameraWrapper">
     <div class="camera-placeholder" id="placeholder">
@@ -242,10 +133,8 @@
     </div>
     <div id="webcam-container"></div>
     <div class="scan-line"></div>
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
     <div class="status-badge" id="statusBadge"></div>
   </div>
 
@@ -261,12 +150,10 @@
     <div class="medicine-hindi" id="medicineHindi"></div>
     <div class="bars-section" id="barsSection"></div>
 
-    <div class="dose-card" id="doseCard">
-      <div class="dose-text" id="doseText"></div>
-      <button id="markTakenBtn" onclick="markDoseTaken()">
-        ✅ &nbsp;आज की खुराक ली
-        <span class="en-text"> &nbsp;·&nbsp; Mark as Taken</span>
-      </button>
+    <div class="dose-slots" id="doseSlots">
+      <div class="slots-title en-text">Dose schedule · खुराक का समय</div>
+      <div class="slots-title" id="hindiSlotsTitle" style="display:none;">खुराक का समय</div>
+      <div id="slotsList"></div>
     </div>
 
     <div class="speak-buttons" id="speakButtons">
@@ -275,375 +162,308 @@
     </div>
   </div>
 
-  <div class="history-card" id="historyCard">
-    <div class="history-title en-text">Today's Doses · आज की खुराकें</div>
-    <div class="history-title" id="hindiHistoryTitle" style="display:none;">आज की खुराकें</div>
-    <div id="historyList"></div>
-  </div>
-
   <div id="bottomStatus">बटन दबाएं और शुरू करें &nbsp;·&nbsp; Press button to begin</div>
 </div>
 
 <footer>Built with ❤️ for Indian grandparents · Kritika's Project</footer>
 
 <script>
-  const MODEL_URL = "./model/";
-  const CONFIDENCE_THRESHOLD = 0.85;
-  const CONFIRM_SECONDS = 2;
+const MODEL_URL = "./model/";
+const CONFIDENCE_THRESHOLD = 0.92;
+const CONFIRM_SECONDS = 3;
 
-  const MEDICINE_INFO = {
-    "xtpara": {
-      displayName: "XTPara Proglet",
-      hindi: "यह दर्द और बुखार की दवाई है।\nडॉक्टर के बताए समय पर लें।",
-      speakHindi: "यह एक्स टी पारा है। दर्द और बुखार की दवाई। डॉक्टर के बताए समय पर लीजिए।",
-      speakEnglish: "This is X T Para Proglet. It is used to relieve pain and reduce fever. Please take it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक ले ली गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं ली।",
-      doseTakenEnglish: "Today's dose has already been taken. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been taken yet. Please take it now."
-    },
-    "defup": {
-      displayName: "Defup 6mg",
-      hindi: "यह सूजन और जोड़ों के दर्द की दवाई है।\nडॉक्टर के बताए समय पर लें।",
-      speakHindi: "यह डेफअप है। सूजन और जोड़ों के दर्द की दवाई। डॉक्टर के बताए समय पर लीजिए।",
-      speakEnglish: "This is Defup, 6 milligram. It is used to reduce inflammation and joint pain. Please take it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक ले ली गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं ली।",
-      doseTakenEnglish: "Today's dose has already been taken. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been taken yet. Please take it now."
-    },
-    "hcqs": {
-      displayName: "HCQS-400",
-      hindi: "यह गठिया और जोड़ों की बीमारी की दवाई है।\nडॉक्टर के बताए समय पर लें।",
-      speakHindi: "यह एच सी क्यू एस चार सौ है। गठिया की दवाई। डॉक्टर के बताए समय पर लीजिए।",
-      speakEnglish: "This is H C Q S, 400 milligram. It is used to treat arthritis and joint diseases. Please take it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक ले ली गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं ली।",
-      doseTakenEnglish: "Today's dose has already been taken. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been taken yet. Please take it now."
-    },
-    "panozir": {
-      displayName: "Panozir-DSR",
-      hindi: "यह पेट में जलन और एसिडिटी की दवाई है।\nडॉक्टर के बताए समय पर लें।",
-      speakHindi: "यह पैनोज़िर डी एस आर है। पेट में जलन और एसिडिटी की दवाई। डॉक्टर के बताए समय पर लीजिए।",
-      speakEnglish: "This is Panozir D S R. It is used to treat acidity, heartburn, and indigestion. Please take it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक ले ली गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं ली।",
-      doseTakenEnglish: "Today's dose has already been taken. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been taken yet. Please take it now."
-    },
-    "crocin": {
-      displayName: "Crocin Advance",
-      hindi: "यह दर्द और बुखार की दवाई है।\nडॉक्टर के बताए समय पर लें।",
-      speakHindi: "यह क्रोसिन एडवांस है। दर्द और बुखार की दवाई। डॉक्टर के बताए समय पर लीजिए।",
-      speakEnglish: "This is Crocin Advance. It is used to relieve pain and reduce fever. Please take it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक ले ली गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं ली।",
-      doseTakenEnglish: "Today's dose has already been taken. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been taken yet. Please take it now."
-    },
-    "moxitak": {
-      displayName: "Moxitak-D Eye Drops",
-      hindi: "यह आंखों के इन्फेक्शन की दवाई है।\nडॉक्टर के बताए समय पर डालें।",
-      speakHindi: "यह मोक्सीटाक डी है। आंखों के इन्फेक्शन की दवाई। डॉक्टर के बताए समय पर आंखों में डालिए।",
-      speakEnglish: "This is Moxitak D eye drops. It is used to treat eye infections. Please use it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक दे दी गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं दी।",
-      doseTakenEnglish: "Today's dose has already been given. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been given yet. Please use it now."
-    },
-    "softdrops": {
-      displayName: "Softdrops Eye Drops",
-      hindi: "यह आंखों की सूखापन की दवाई है।\nडॉक्टर के बताए समय पर डालें।",
-      speakHindi: "यह सॉफ्ट ड्रॉप्स है। आंखों की सूखापन की दवाई। डॉक्टर के बताए समय पर आंखों में डालिए।",
-      speakEnglish: "This is Softdrops. It is a lubricating eye drop used to relieve dry and irritated eyes. Please use it at the time advised by your doctor.",
-      doseTakenHindi: "आज की खुराक दे दी गई है। शाबाश!",
-      doseNotTakenHindi: "आज की खुराक अभी नहीं दी।",
-      doseTakenEnglish: "Today's dose has already been given. Well done!",
-      doseNotTakenEnglish: "Today's dose has not been given yet. Please use it now."
-    }
-  };
-
-  // ── PERMANENT DOSE TRACKER ────────────────────────────────────────────────
-  function getTodayDate() { return new Date().toISOString().split("T")[0]; }
-  function getDoseKey(m) { return "dawai_dose_" + m + "_" + getTodayDate(); }
-  function hasTakenToday(m) { return localStorage.getItem(getDoseKey(m)) !== null; }
-  function getTimeTaken(m) { return localStorage.getItem(getDoseKey(m)); }
-  function recordDose(m) {
-    const now = new Date();
-    const t = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0');
-    localStorage.setItem(getDoseKey(m), t);
+const MEDICINE_INFO = {
+  "xtpara": {
+    displayName: "XTPara Proglet",
+    hindi: "यह दर्द और बुखार की दवाई है।",
+    slots: [
+      { id: "morning", label: "सुबह · Morning", time: "10:00 AM", food: "खाने के बाद · After food" },
+      { id: "night",   label: "रात · Night",    time: "9:00 PM",  food: "खाने के बाद · After food" }
+    ],
+    scheduleHindi: "एक्स टी पारा — दर्द और बुखार की दवाई। सुबह दस बजे और रात नौ बजे, खाने के बाद लीजिए।",
+    scheduleEnglish: "XTPara Proglet — for pain and fever. Take one tablet at 10 AM and one at 9 PM, after food."
+  },
+  "defup": {
+    displayName: "Defup 6mg",
+    hindi: "यह सूजन और जोड़ों के दर्द की दवाई है।",
+    slots: [
+      { id: "afternoon", label: "दोपहर · Afternoon", time: "2:30 PM", food: "खाने के बाद · After food" }
+    ],
+    scheduleHindi: "डेफअप — सूजन और जोड़ों के दर्द की दवाई। दोपहर ढाई बजे, खाने के बाद लीजिए।",
+    scheduleEnglish: "Defup 6mg — for inflammation and joint pain. Take one tablet at 2:30 PM, after food."
+  },
+  "hcqs": {
+    displayName: "HCQS-400",
+    hindi: "यह गठिया और जोड़ों की बीमारी की दवाई है।",
+    slots: [
+      { id: "afternoon", label: "दोपहर · Afternoon", time: "2:30 PM", food: "खाने के बाद · After food" }
+    ],
+    scheduleHindi: "एच सी क्यू एस चार सौ — गठिया की दवाई। दोपहर ढाई बजे, खाने के बाद लीजिए।",
+    scheduleEnglish: "HCQS 400 — for arthritis. Take one tablet at 2:30 PM, after food."
+  },
+  "panozir": {
+    displayName: "Panozir-DSR",
+    hindi: "यह पेट में जलन और एसिडिटी की दवाई है।",
+    slots: [
+      { id: "morning", label: "सुबह · Morning", time: "9:00 AM", food: "खाली पेट · Empty stomach" }
+    ],
+    scheduleHindi: "पैनोज़िर डी एस आर — एसिडिटी की दवाई। सुबह नौ बजे, खाली पेट लीजिए।",
+    scheduleEnglish: "Panozir DSR — for acidity and heartburn. Take one capsule at 9 AM on an empty stomach."
+  },
+  "crocin": {
+    displayName: "Crocin Advance",
+    hindi: "यह दर्द और बुखार की दवाई है।",
+    slots: [
+      { id: "asneeded", label: "जरूरत पड़ने पर · As needed", time: "As needed", food: "खाने के बाद · After food" }
+    ],
+    scheduleHindi: "क्रोसिन एडवांस — दर्द और बुखार की दवाई। जरूरत पड़ने पर, खाने के बाद लीजिए।",
+    scheduleEnglish: "Crocin Advance — for pain and fever. Take as needed, after food."
+  },
+  "moxitak": {
+    displayName: "Moxitak-D Eye Drops",
+    hindi: "यह आंखों के इन्फेक्शन की दवाई है।",
+    slots: [
+      { id: "morning", label: "सुबह · Morning", time: "Morning", food: "एक बूंद प्रत्येक आंख में · One drop each eye" },
+      { id: "night",   label: "रात · Night",    time: "Night",   food: "एक बूंद प्रत्येक आंख में · One drop each eye" }
+    ],
+    scheduleHindi: "मोक्सीटाक डी — आंखों के इन्फेक्शन की दवाई। दिन में दो बार, एक बूंद प्रत्येक आंख में डालिए।",
+    scheduleEnglish: "Moxitak D eye drops — for eye infection. Put one drop in each eye, twice a day — morning and night."
+  },
+  "softdrops": {
+    displayName: "Softdrops Eye Drops",
+    hindi: "यह आंखों की सूखापन की दवाई है।",
+    slots: [
+      { id: "morning", label: "सुबह · Morning", time: "Morning", food: "एक बूंद प्रत्येक आंख में · One drop each eye" },
+      { id: "night",   label: "रात · Night",    time: "Night",   food: "एक बूंद प्रत्येक आंख में · One drop each eye" }
+    ],
+    scheduleHindi: "सॉफ्ट ड्रॉप्स — आंखों की सूखापन की दवाई। दिन में दो बार, एक बूंद प्रत्येक आंख में डालिए।",
+    scheduleEnglish: "Softdrops — lubricating eye drops for dry eyes. Put one drop in each eye, twice a day — morning and night."
   }
+};
 
-  // ── HISTORY PANEL ─────────────────────────────────────────────────────────
-  function updateHistoryPanel() {
-    const list = document.getElementById("historyList");
-    const medicines = Object.keys(MEDICINE_INFO);
-    const takenRows = medicines.filter(m => hasTakenToday(m)).map(m => {
-      const info = MEDICINE_INFO[m];
-      const time = getTimeTaken(m);
-      return `<div class="history-row">
-        <div class="history-dot taken"></div>
-        <div class="history-medicine">${info.displayName}</div>
-        <div class="history-time">✅ ${time}</div>
-      </div>`;
-    });
-    const pendingRows = medicines.filter(m => !hasTakenToday(m)).map(m => {
-      const info = MEDICINE_INFO[m];
-      return `<div class="history-row">
-        <div class="history-dot not-taken"></div>
-        <div class="history-medicine" style="opacity:0.5;">${info.displayName}</div>
-        <div class="history-time" style="opacity:0.4;">${currentLang === 'hi' ? 'बाकी है' : 'pending'}</div>
-      </div>`;
-    });
-    list.innerHTML = (takenRows.length === 0
-      ? `<div style="font-size:0.78rem;color:var(--bark);opacity:0.5;padding:4px 0;">${currentLang === 'hi' ? 'आज कोई खुराक नहीं ली गई।' : 'No doses recorded today yet.'}</div>`
-      : takenRows.join("")) + pendingRows.join("");
-  }
-
-  // ── VOICE ─────────────────────────────────────────────────────────────────
-  let selectedEnglishVoice = null;
-  let selectedHindiVoice = null;
-
-  function loadVoices() {
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length === 0) return;
-    selectedEnglishVoice =
-      voices.find(v => v.name === 'Samantha') ||
-      voices.find(v => v.name === 'Daniel') ||
-      voices.find(v => v.lang === 'en-US' && v.localService) ||
-      voices.find(v => v.lang.startsWith('en'));
-    selectedHindiVoice =
-      voices.find(v => v.name === 'Lekha') ||
-      voices.find(v => v.lang === 'hi-IN' && v.localService) ||
-      voices.find(v => v.lang === 'hi-IN') ||
-      voices.find(v => v.lang.startsWith('hi'));
-  }
-
-  window.speechSynthesis.onvoiceschanged = loadVoices;
-  loadVoices();
-
-  // ── STATE ─────────────────────────────────────────────────────────────────
-  let model, webcam;
-  let currentMedicine = null;
-  let isRunning = false;
-  let currentLang = 'hi';
-  let confidentSince = null;
-  let lastSpokenMedicine = null;
-
-  // ── LANGUAGE ──────────────────────────────────────────────────────────────
-  function setLang(lang) {
-    currentLang = lang;
-    document.getElementById('btnHi').classList.toggle('active', lang === 'hi');
-    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
-    document.getElementById('hindiResultLabel').style.display = lang === 'hi' ? 'block' : 'none';
-    document.getElementById('hindiHistoryTitle').style.display = lang === 'hi' ? 'block' : 'none';
-    document.body.classList.toggle('hindi-mode', lang === 'hi');
-    updateHistoryPanel();
-  }
-
-  setLang('hi');
-
-  // ── CAMERA ────────────────────────────────────────────────────────────────
-  async function startCamera() {
-    const btn = document.getElementById("startBtn");
-    btn.disabled = true;
-    btn.innerHTML = "⏳ &nbsp;लोड हो रहा है...";
-    setBottomStatus("AI model लोड हो रहा है...");
-    try {
-      model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
-      // Check if mobile device
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-if (isMobile) {
-  // On mobile, use device camera directly
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: 'environment', width: 400, height: 300 }
-  });
-  const video = document.createElement('video');
-  video.srcObject = stream;
-  video.setAttribute('playsinline', true);
-  await video.play();
-  document.getElementById("webcam-container").appendChild(video);
-
-  // Override predict to use video instead of webcam canvas
-  const canvas = document.createElement('canvas');
-  canvas.width = 400; canvas.height = 300;
-  webcam = {
-    canvas: canvas,
-    update: () => {
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, 400, 300);
-    }
-  };
-} else {
-  // On desktop, use Teachable Machine webcam as before
-  webcam = new tmImage.Webcam(400, 300, true);
-  await webcam.setup();
-  await webcam.play();
+function getTodayDate() { return new Date().toISOString().split("T")[0]; }
+function getDoseKey(med, slotId) { return "dawai_" + med + "_" + slotId + "_" + getTodayDate(); }
+function hasTakenSlot(med, slotId) { return localStorage.getItem(getDoseKey(med, slotId)) !== null; }
+function getSlotTime(med, slotId) { return localStorage.getItem(getDoseKey(med, slotId)); }
+function recordSlot(med, slotId) {
+  const now = new Date();
+  const t = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0');
+  localStorage.setItem(getDoseKey(med, slotId), t);
 }
-      document.getElementById("placeholder").style.display = "none";
+function allSlotsTaken(med) { return MEDICINE_INFO[med]?.slots.every(s => hasTakenSlot(med, s.id)); }
+function someSlotsTaken(med) { return MEDICINE_INFO[med]?.slots.some(s => hasTakenSlot(med, s.id)); }
+
+function updateRxSummary() {
+  const list = document.getElementById("rxList");
+  list.innerHTML = Object.entries(MEDICINE_INFO).map(([key, info]) => {
+    const taken = allSlotsTaken(key);
+    const partial = !taken && someSlotsTaken(key);
+    const dot = taken ? 'all-taken' : partial ? 'partial' : 'pending';
+    const statusCls = taken ? 'all-taken' : partial ? 'partial' : 'pending';
+    const schedText = info.slots.map(s => s.time).join(' & ');
+    let statusText;
+    if (taken) statusText = currentLang === 'hi' ? '✅ ली गई' : '✅ Done';
+    else if (partial) {
+      const cnt = info.slots.filter(s => hasTakenSlot(key, s.id)).length;
+      statusText = '🕐 ' + cnt + '/' + info.slots.length;
+    } else statusText = currentLang === 'hi' ? '⚠️ बाकी' : '⚠️ Pending';
+    return `<div class="rx-row">
+      <div class="rx-dot ${dot}"></div>
+      <div class="rx-info">
+        <div class="rx-name">${info.displayName}</div>
+        <div class="rx-schedule">${schedText}</div>
+      </div>
+      <div class="rx-status ${statusCls}">${statusText}</div>
+    </div>`;
+  }).join("");
+}
+
+function speakFullSchedule() {
+  let text = currentLang === 'hi' ? "आज की दवाइयाँ। " : "Today's medicines. ";
+  Object.entries(MEDICINE_INFO).forEach(([key, info]) => {
+    const taken = allSlotsTaken(key);
+    const partial = !taken && someSlotsTaken(key);
+    const status = currentLang === 'hi'
+      ? (taken ? 'ले ली गई है।' : partial ? 'कुछ खुराक बाकी है।' : 'अभी नहीं ली।')
+      : (taken ? 'Taken.' : partial ? 'Partially taken.' : 'Not yet taken.');
+    text += (currentLang === 'hi' ? info.scheduleHindi : info.scheduleEnglish) + ' ' + status + ' ';
+  });
+  speak(text, currentLang);
+}
+
+function updateDoseSlots(medicineKey) {
+  const info = MEDICINE_INFO[medicineKey];
+  if (!info) return;
+  document.getElementById("doseSlots").style.display = "block";
+  document.getElementById("hindiSlotsTitle").style.display = currentLang === 'hi' ? 'block' : 'none';
+  document.getElementById("slotsList").innerHTML = info.slots.map(slot => {
+    const taken = hasTakenSlot(medicineKey, slot.id);
+    const takenTime = getSlotTime(medicineKey, slot.id);
+    return `<div class="slot-row ${taken ? 'taken' : 'pending'}">
+      <div class="slot-info">
+        <div class="slot-time">${slot.label} — ${slot.time}</div>
+        <div class="slot-food">${slot.food}</div>
+        ${taken && takenTime ? `<div class="slot-taken-time">✅ ${takenTime} पर ली गई</div>` : ''}
+      </div>
+      ${taken
+        ? `<div class="slot-taken-badge">✅ ली गई</div>`
+        : `<button class="slot-mark-btn" onclick="markSlot('${medicineKey}','${slot.id}')">✅ ली</button>`
+      }
+    </div>`;
+  }).join("");
+}
+
+function markSlot(medicineKey, slotId) {
+  recordSlot(medicineKey, slotId);
+  updateDoseSlots(medicineKey);
+  updateRxSummary();
+  const slot = MEDICINE_INFO[medicineKey]?.slots.find(s => s.id === slotId);
+  speak("खुराक दर्ज हो गई। शाबाश! " + (slot ? slot.label.split('·')[0].trim() + " की खुराक ली गई।" : ""), 'hi');
+}
+
+let selectedEnglishVoice = null, selectedHindiVoice = null;
+function loadVoices() {
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  selectedEnglishVoice = voices.find(v => v.name === 'Samantha') || voices.find(v => v.name === 'Daniel') || voices.find(v => v.lang === 'en-US' && v.localService) || voices.find(v => v.lang.startsWith('en'));
+  selectedHindiVoice = voices.find(v => v.name === 'Lekha') || voices.find(v => v.lang === 'hi-IN' && v.localService) || voices.find(v => v.lang === 'hi-IN') || voices.find(v => v.lang.startsWith('hi'));
+}
+window.speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+let model, webcam, currentMedicine = null, isRunning = false;
+let currentLang = 'hi', confidentSince = null, lastSpokenMedicine = null;
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btnHi').classList.toggle('active', lang === 'hi');
+  document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  document.getElementById('hindiResultLabel').style.display = lang === 'hi' ? 'block' : 'none';
+  document.getElementById('hindiSlotsTitle').style.display = lang === 'hi' ? 'block' : 'none';
+  document.body.classList.toggle('hindi-mode', lang === 'hi');
+  updateRxSummary();
+}
+
+setLang('hi');
+updateRxSummary();
+
+async function startCamera() {
+  const btn = document.getElementById("startBtn");
+  btn.disabled = true;
+  btn.innerHTML = "⏳ &nbsp;लोड हो रहा है...";
+  setBottomStatus("AI model लोड हो रहा है...");
+  try {
+    model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: 400, height: 300 } });
+      const video = document.createElement('video');
+      video.srcObject = stream;
+      video.setAttribute('playsinline', true);
+      await video.play();
+      document.getElementById("webcam-container").appendChild(video);
+      const canvas = document.createElement('canvas');
+      canvas.width = 400; canvas.height = 300;
+      webcam = { canvas, update: () => { const ctx = canvas.getContext('2d'); ctx.drawImage(video, 0, 0, 400, 300); } };
+    } else {
+      webcam = new tmImage.Webcam(400, 300, true);
+      await webcam.setup(); await webcam.play();
       document.getElementById("webcam-container").appendChild(webcam.canvas);
-      document.getElementById("cameraWrapper").classList.add("scanning");
-      document.getElementById("result-area").style.display = "block";
-      document.getElementById("speakButtons").classList.add("visible");
-      document.getElementById("historyCard").classList.add("visible");
-      updateHistoryPanel();
-      btn.innerHTML = "✅ &nbsp;कैमरा चालू है";
-      setBadge("scanning", "🔍 दवाई दिखाएं");
-      setBottomStatus("दवाई की पट्टी कैमरे के सामने रखें और स्थिर रखें");
-      isRunning = true;
-      window.requestAnimationFrame(predictionLoop);
-    } catch (err) {
-      btn.disabled = false;
-      btn.innerHTML = "📷 &nbsp;कैमरा शुरू करें";
-      setBottomStatus("❌ Error: " + err.message);
     }
-  }
-
-  // ── PREDICTION ────────────────────────────────────────────────────────────
-  async function predictionLoop() {
-    if (!isRunning) return;
-    webcam.update();
-    await predict();
+    document.getElementById("placeholder").style.display = "none";
+    document.getElementById("cameraWrapper").classList.add("scanning");
+    document.getElementById("result-area").style.display = "block";
+    document.getElementById("speakButtons").classList.add("visible");
+    btn.innerHTML = "✅ &nbsp;कैमरा चालू है";
+    setBadge("scanning", "🔍 दवाई दिखाएं");
+    setBottomStatus("दवाई की पट्टी कैमरे के सामने रखें और स्थिर रखें");
+    isRunning = true;
     window.requestAnimationFrame(predictionLoop);
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = "📷 &nbsp;कैमरा शुरू करें";
+    setBottomStatus("❌ Error: " + err.message);
   }
+}
 
-  async function predict() {
-    const predictions = await model.predict(webcam.canvas);
-    const sorted = [...predictions].sort((a, b) => b.probability - a.probability);
-    const top = sorted[0];
-    const topKey = top.className.replace(/^\d+\s*/, "").toLowerCase().trim();
-    const confidence = top.probability;
-    const info = MEDICINE_INFO[topKey];
+async function predictionLoop() {
+  if (!isRunning) return;
+  webcam.update();
+  await predict();
+  window.requestAnimationFrame(predictionLoop);
+}
 
-    updateBars(sorted);
+async function predict() {
+  const predictions = await model.predict(webcam.canvas);
+  const sorted = [...predictions].sort((a, b) => b.probability - a.probability);
+  const top = sorted[0];
+  const topKey = top.className.replace(/^\d+\s*/, "").toLowerCase().trim();
+  const confidence = top.probability;
+  const info = MEDICINE_INFO[topKey];
 
-    if (confidence >= CONFIDENCE_THRESHOLD) {
-      const displayName = info ? info.displayName : topKey.toUpperCase();
-      const hindiText = info ? info.hindi : "अधिक जानकारी उपलब्ध नहीं।";
-      document.getElementById("medicineName").textContent = displayName;
-      document.getElementById("medicineHindi").textContent = hindiText;
+  document.getElementById("barsSection").innerHTML = sorted.map((p, i) => {
+    const key = p.className.replace(/^\d+\s*/, "").toLowerCase().trim();
+    const label = MEDICINE_INFO[key]?.displayName || key;
+    const pct = Math.round(p.probability * 100);
+    return `<div class="bar-row"><div class="bar-label">${label}</div><div class="bar-track"><div class="bar-fill ${i===0?'top':''}" style="width:${pct}%"></div></div><div class="bar-pct">${pct}%</div></div>`;
+  }).join("");
 
-      if (confidentSince === null) {
-        confidentSince = Date.now();
-        setBadge("found", "⚡ मिली! स्थिर रखें...");
-      }
-
-      if ((Date.now() - confidentSince) / 1000 >= CONFIRM_SECONDS) {
-        setBadge("confirmed", "✅ पहचान हुई!");
-        document.getElementById("mainCard").classList.add("confirmed");
-        if (topKey !== currentMedicine) {
-          currentMedicine = topKey;
-          updateDoseCard(topKey);
-        }
-        if (lastSpokenMedicine !== topKey) {
-          lastSpokenMedicine = topKey;
-          setTimeout(() => speakMedicine(topKey, 'hi'), 300);
-        }
-        setBottomStatus("दवाई पहचानी गई · " + displayName);
-      }
-    } else {
-      confidentSince = null;
-      document.getElementById("mainCard").classList.remove("confirmed");
-      setBadge("scanning", "🔍 दवाई दिखाएं");
-      if (confidence < 0.4) {
-        document.getElementById("medicineName").textContent = "—";
-        document.getElementById("medicineHindi").textContent =
-          currentLang === 'hi' ? "दवाई कैमरे के सामने रखें" : "Hold medicine in front of camera";
-        document.getElementById("doseCard").style.display = "none";
-        document.getElementById("markTakenBtn").style.display = "none";
-        currentMedicine = null;
-        lastSpokenMedicine = null;
-      }
-      setBottomStatus(currentLang === 'hi' ? "दवाई को पास लाएं और स्थिर रखें" : "Bring medicine closer and hold still");
+  if (confidence >= CONFIDENCE_THRESHOLD) {
+    document.getElementById("medicineName").textContent = info ? info.displayName : topKey.toUpperCase();
+    document.getElementById("medicineHindi").textContent = info ? info.hindi : "अधिक जानकारी उपलब्ध नहीं।";
+    if (confidentSince === null) { confidentSince = Date.now(); setBadge("found", "⚡ मिली! स्थिर रखें..."); }
+    if ((Date.now() - confidentSince) / 1000 >= CONFIRM_SECONDS) {
+      setBadge("confirmed", "✅ पहचान हुई!");
+      document.getElementById("mainCard").classList.add("confirmed");
+      if (topKey !== currentMedicine) { currentMedicine = topKey; updateDoseSlots(topKey); }
+      if (lastSpokenMedicine !== topKey) { lastSpokenMedicine = topKey; setTimeout(() => speakMedicine(topKey, 'hi'), 300); }
+      setBottomStatus("दवाई पहचानी गई · " + (info?.displayName || topKey));
     }
-  }
-
-  function updateBars(sorted) {
-    document.getElementById("barsSection").innerHTML = sorted.map((p, i) => {
-      const key = p.className.replace(/^\d+\s*/, "").toLowerCase().trim();
-      const label = MEDICINE_INFO[key] ? MEDICINE_INFO[key].displayName : key;
-      const pct = Math.round(p.probability * 100);
-      return `<div class="bar-row">
-        <div class="bar-label">${label}</div>
-        <div class="bar-track"><div class="bar-fill ${i===0?'top':''}" style="width:${pct}%"></div></div>
-        <div class="bar-pct">${pct}%</div>
-      </div>`;
-    }).join("");
-  }
-
-  function updateDoseCard(medicineKey) {
-    const card = document.getElementById("doseCard");
-    const text = document.getElementById("doseText");
-    const markBtn = document.getElementById("markTakenBtn");
-    const info = MEDICINE_INFO[medicineKey];
-    card.style.display = "block";
-    if (hasTakenToday(medicineKey)) {
-      const time = getTimeTaken(medicineKey);
-      card.className = "dose-card taken";
-      text.textContent = "✅ " + (info ? info.doseTakenHindi : "आज की खुराक ले ली गई है।") + (time ? " (" + time + ")" : "");
-      markBtn.style.display = "none";
-    } else {
-      card.className = "dose-card not-taken";
-      text.textContent = "⚠️ " + (info ? info.doseNotTakenHindi : "आज की खुराक अभी नहीं ली।");
-      markBtn.style.display = "inline-block";
+  } else {
+    confidentSince = null;
+    document.getElementById("mainCard").classList.remove("confirmed");
+    setBadge("scanning", "🔍 दवाई दिखाएं");
+    if (confidence < 0.4) {
+      document.getElementById("medicineName").textContent = "—";
+      document.getElementById("medicineHindi").textContent = currentLang === 'hi' ? "दवाई कैमरे के सामने रखें" : "Hold medicine in front of camera";
+      document.getElementById("doseSlots").style.display = "none";
+      currentMedicine = null; lastSpokenMedicine = null;
     }
+    setBottomStatus(currentLang === 'hi' ? "दवाई को पास लाएं और स्थिर रखें" : "Bring medicine closer and hold still");
   }
+}
 
-  function markDoseTaken() {
-    if (!currentMedicine) return;
-    recordDose(currentMedicine);
-    updateDoseCard(currentMedicine);
-    updateHistoryPanel();
-    speak("आज की खुराक ले ली। बहुत अच्छे!", 'hi');
-  }
+function speakResult(lang) {
+  if (!currentMedicine) { speak(lang === 'hi' ? "दवाई को कैमरे के सामने रखें।" : "Please hold the medicine in front of the camera.", lang); return; }
+  speakMedicine(currentMedicine, lang);
+}
 
-  function speakResult(lang) {
-    if (!currentMedicine) {
-      if (lang === 'hi') speak("दवाई को कैमरे के सामने रखें।", 'hi');
-      else speak("Please hold the medicine in front of the camera.", 'en');
-      return;
-    }
-    speakMedicine(currentMedicine, lang);
-  }
+function speakMedicine(medicineKey, lang) {
+  const info = MEDICINE_INFO[medicineKey];
+  if (!info) return;
+  const taken = allSlotsTaken(medicineKey);
+  const partial = !taken && someSlotsTaken(medicineKey);
+  const status = lang === 'hi'
+    ? (taken ? 'आज की सभी खुराकें ले ली गई हैं। शाबाश!' : partial ? 'कुछ खुराक अभी बाकी है।' : 'आज की खुराक अभी नहीं ली।')
+    : (taken ? "All doses taken today. Well done!" : partial ? "Some doses still remaining." : "Dose not yet taken today.");
+  speak((lang === 'hi' ? info.scheduleHindi : info.scheduleEnglish) + " " + status, lang);
+}
 
-  function speakMedicine(medicineKey, lang) {
-    const info = MEDICINE_INFO[medicineKey];
-    if (!info) return;
-    const doseStatus = hasTakenToday(medicineKey)
-      ? (lang === 'hi' ? info.doseTakenHindi : info.doseTakenEnglish)
-      : (lang === 'hi' ? info.doseNotTakenHindi : info.doseNotTakenEnglish);
-    speak((lang === 'hi' ? info.speakHindi : info.speakEnglish) + " " + doseStatus, lang);
-  }
+function speak(text, lang) {
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (lang === 'hi') { if (selectedHindiVoice) u.voice = selectedHindiVoice; u.lang = 'hi-IN'; u.rate = 0.82; }
+  else { if (selectedEnglishVoice) u.voice = selectedEnglishVoice; u.lang = 'en-US'; u.rate = 0.88; }
+  const hBtn = document.getElementById("speakHindiBtn");
+  const eBtn = document.getElementById("speakEnglishBtn");
+  if (hBtn) hBtn.classList.toggle("speaking", lang === 'hi');
+  if (eBtn) eBtn.classList.toggle("speaking", lang === 'en');
+  u.onend = () => { if(hBtn) hBtn.classList.remove("speaking"); if(eBtn) eBtn.classList.remove("speaking"); };
+  window.speechSynthesis.speak(u);
+}
 
-  function speak(text, lang) {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    if (lang === 'hi') {
-      if (selectedHindiVoice) u.voice = selectedHindiVoice;
-      u.lang = 'hi-IN'; u.rate = 0.82; u.pitch = 1.0;
-    } else {
-      if (selectedEnglishVoice) u.voice = selectedEnglishVoice;
-      u.lang = 'en-US'; u.rate = 0.88; u.pitch = 1.0;
-    }
-    const btn = lang === 'hi'
-      ? document.getElementById("speakHindiBtn")
-      : document.getElementById("speakEnglishBtn");
-    btn.classList.add("speaking");
-    u.onend = () => btn.classList.remove("speaking");
-    window.speechSynthesis.speak(u);
-  }
-
-  function setBadge(type, text) {
-    const badge = document.getElementById("statusBadge");
-    badge.className = "status-badge " + type;
-    badge.textContent = text;
-  }
-
-  function setBottomStatus(msg) {
-    document.getElementById("bottomStatus").textContent = msg;
-  }
+function setBadge(type, text) { const b = document.getElementById("statusBadge"); b.className = "status-badge " + type; b.textContent = text; }
+function setBottomStatus(msg) { document.getElementById("bottomStatus").textContent = msg; }
 </script>
 </body>
 </html>
