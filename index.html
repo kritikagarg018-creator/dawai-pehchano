@@ -269,6 +269,15 @@
       <button class="add-btn-small" onclick="setCustomBlood()">✓ ठीक है</button>
     </div>
   </div>
+  <div class="p-card">
+  <div class="p-title">🔤 अक्षर का आकार · Text Size</div>
+  <div class="p-sublabel">बड़ा या छोटा चुनें · Choose your preferred size</div>
+  <div style="display:flex;gap:10px;margin-top:8px;">
+    <button class="blood-btn" id="sizeSmall" onclick="setFontSize('small')" style="flex:1;font-size:13px;">छोटा<br><span style="font-size:11px;opacity:0.6;">Small</span></button>
+    <button class="blood-btn sel" id="sizeMedium" onclick="setFontSize('medium')" style="flex:1;font-size:16px;">मध्यम<br><span style="font-size:12px;opacity:0.6;">Medium</span></button>
+    <button class="blood-btn" id="sizeLarge" onclick="setFontSize('large')" style="flex:1;font-size:20px;">बड़ा<br><span style="font-size:13px;opacity:0.6;">Large</span></button>
+  </div>
+</div>
   <button class="save-profile-btn" onclick="saveProfile()">✅ &nbsp;सुरक्षित करें · Save Profile</button>
   <div style="height:20px;"></div>
 </div>
@@ -343,6 +352,19 @@ function renderTags(type,color){const container=document.getElementById(type+'Ta
 function removeTag(type,val,color){const idx=profileSelected[type].indexOf(val);if(idx!==-1)profileSelected[type].splice(idx,1);document.querySelectorAll(`#${type}Chips .chip`).forEach(c=>{if(c.dataset.val===val)c.classList.remove('sel');});renderTags(type,color);}
 function selectBlood(btn){document.querySelectorAll('.blood-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');bloodGroup=btn.dataset.val;}
 function setCustomBlood(){const val=document.getElementById('bloodInput').value.trim();if(!val)return;document.querySelectorAll('.blood-btn').forEach(b=>b.classList.remove('sel'));bloodGroup=val;document.getElementById('bloodInput').value='';}
+function setFontSize(size) {
+  const sizes = { small: '13px', medium: '16px', large: '20px' };
+  document.body.style.fontSize = sizes[size];
+  document.querySelectorAll('.medicine-name').forEach(el => {
+    el.style.fontSize = size === 'large' ? '2.8rem' : size === 'small' ? '1.4rem' : '';
+  });
+  document.querySelectorAll('.medicine-hindi, .slot-time, .rx-name, .app-title').forEach(el => {
+    el.style.fontSize = size === 'large' ? '1.3rem' : size === 'small' ? '0.9rem' : '';
+  });
+  ['sizeSmall','sizeMedium','sizeLarge'].forEach(id => document.getElementById(id)?.classList.remove('sel'));
+  document.getElementById('size' + size.charAt(0).toUpperCase() + size.slice(1))?.classList.add('sel');
+  localStorage.setItem('dawai_fontSize', size);
+}
 function saveProfile(){
   const profile={name:document.getElementById("userName").value.trim(),age:document.getElementById("userAge").value.trim(),conditions:[...profileSelected.cond],allergies:[...profileSelected.allergy],medicines:[...profileSelected.med],bloodGroup:bloodGroup};
   localStorage.setItem("dawai_profile",JSON.stringify(profile));
@@ -369,6 +391,7 @@ let model,webcam,currentMedicine=null,isRunning=false;
 let currentLang='hi',confidentSince=null,lastSpokenMedicine=null;
 function setLang(lang){currentLang=lang;document.getElementById('btnHi').classList.toggle('active',lang==='hi');document.getElementById('btnEn').classList.toggle('active',lang==='en');document.getElementById('hindiResultLabel').style.display=lang==='hi'?'block':'none';document.getElementById('hindiSlotsTitle').style.display=lang==='hi'?'block':'none';document.body.classList.toggle('hindi-mode',lang==='hi');updateRxSummary();}
 setLang('hi');updateRxSummary();
+const savedSize=localStorage.getItem('dawai_fontSize');if(savedSize)setFontSize(savedSize);
 const savedProfile=localStorage.getItem("dawai_profile");
 if(savedProfile){const p=JSON.parse(savedProfile);if(p.name)document.getElementById("profileIconBtn").textContent=p.name.charAt(0).toUpperCase();}
 async function startCamera(){
