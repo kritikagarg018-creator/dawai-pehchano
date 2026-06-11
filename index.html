@@ -126,7 +126,7 @@
 <body>
 <div class="top-band"></div>
 <header>
-  <button class="profile-icon-btn" id="profileIconBtn" onclick="showProfile()">प्रो</button>
+  <button class="profile-icon-btn" id="profileIconBtn" onclick="showProfile()" style="width:auto;border-radius:20px;padding:5px 12px;font-size:0.75rem;">प्रो / Profile</button>
   <div class="lang-toggle">
     <button class="lang-btn active" id="btnHi" onclick="setLang('hi')">हिं</button>
     <button class="lang-btn" id="btnEn" onclick="setLang('en')">EN</button>
@@ -336,7 +336,7 @@ const profileSelected={cond:[],allergy:[],med:[]};
 let bloodGroup='';
 function showProfile(){document.getElementById("mainView").style.display="none";document.getElementById("profileView").style.display="block";loadProfileFromStorage();}
 function hideProfile(){document.getElementById("profileView").style.display="none";document.getElementById("mainView").style.display="block";}
-function updateAvatar(){const name=document.getElementById("userName").value.trim();const initials=name?name.charAt(0).toUpperCase():"प्रो";document.getElementById("avatarDisplay").textContent=initials;document.getElementById("profileIconBtn").textContent=initials;}
+function updateAvatar(){const name=document.getElementById("userName").value.trim();const initials=name?name.charAt(0).toUpperCase():"प्रो";document.getElementById("avatarDisplay").textContent=initials;document.getElementById("profileIconBtn").textContent=initials+" / Profile";}
 function toggleChip(el,type,color){const val=el.dataset.val;const idx=profileSelected[type].indexOf(val);if(idx===-1){profileSelected[type].push(val);el.classList.add('sel');}else{profileSelected[type].splice(idx,1);el.classList.remove('sel');}renderTags(type,color);}
 function addCustom(type){const input=document.getElementById(type+'Input');const val=input.value.trim();if(!val)return;if(!profileSelected[type].includes(val)){profileSelected[type].push(val);const colorMap={cond:'amber',allergy:'red',med:'teal'};renderTags(type,colorMap[type]);}input.value='';}
 function renderTags(type,color){const container=document.getElementById(type+'Tags');container.innerHTML=profileSelected[type].map(v=>`<span class="sel-tag sel-tag-${color}">${v} <span class="remove-tag" onclick="removeTag('${type}','${v}','${color}')">✕</span></span>`).join('');}
