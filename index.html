@@ -455,7 +455,7 @@ function saveProfile(){
   speak("प्रोफ़ाइल सुरक्षित हो गई। शाबाश "+name+"!",'hi');
   setTimeout(()=>hideProfile(),1500);
 }
-}
+
 function loadProfileFromStorage(){
   const saved=localStorage.getItem("dawai_profile");if(!saved)return;
   const profile=JSON.parse(saved);
