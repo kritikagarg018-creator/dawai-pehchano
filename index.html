@@ -399,15 +399,12 @@ function addEmergencyContact() {
   const name = document.getElementById("emergencyName").value.trim();
   const number = document.getElementById("emergencyNumber").value.trim();
   if (!name || !number) return;
-  
-  // Load existing contacts from localStorage first
-  const saved = localStorage.getItem("dawai_profile");
-  if (saved) {
-    const profile = JSON.parse(saved);
-    if (profile.emergency) {
-      emergencyContacts = [...profile.emergency];
-    }
-  }
+  emergencyContacts.push({ name, number });
+  localStorage.setItem("dawai_emergency", JSON.stringify(emergencyContacts));
+  renderEmergencyList();
+  document.getElementById("emergencyName").value = '';
+  document.getElementById("emergencyNumber").value = '';
+}
   
   emergencyContacts.push({ name, number });
   
@@ -438,6 +435,7 @@ function renderEmergencyList() {
 
 function removeEmergency(i) {
   emergencyContacts.splice(i, 1);
+  localStorage.setItem("dawai_emergency", JSON.stringify(emergencyContacts));
   renderEmergencyList();
 }
 function saveProfile(){
@@ -464,7 +462,8 @@ function loadProfileFromStorage(){
   if(profile.name){document.getElementById("userName").value=profile.name;updateAvatar();}
   if(profile.age)document.getElementById("userAge").value=profile.age;
   if(profile.bloodGroup){bloodGroup=profile.bloodGroup;document.querySelectorAll('.blood-btn').forEach(b=>{if(b.dataset.val===bloodGroup)b.classList.add('sel');});}
-  if(profile.emergency){emergencyContacts=[...profile.emergency];renderEmergencyList();}
+  const savedEmergency = localStorage.getItem("dawai_emergency");
+if(savedEmergency){emergencyContacts=JSON.parse(savedEmergency);renderEmergencyList();}
   ['cond','allergy','med'].forEach(type=>{
     const colorMap={cond:'amber',allergy:'red',med:'teal'};
     const key=type==='cond'?'conditions':type==='allergy'?'allergies':'medicines';
@@ -584,11 +583,10 @@ function openSOSPopup() {
       </div>
     </a>`;
 
-  const savedProfile = localStorage.getItem("dawai_profile");
-  if (savedProfile) {
-    const profile = JSON.parse(savedProfile);
-    if (profile.emergency && profile.emergency.length > 0) {
-      profile.emergency.forEach(contact => {
+  const savedEmergency = localStorage.getItem("dawai_emergency");
+  if (savedEmergency) {
+    const emergencyList = JSON.parse(savedEmergency);
+    if (emergencyList && emergencyList.length > 0) {
         html += `
           <a href="tel:${contact.number}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#E1F5EE;border-radius:14px;margin-bottom:10px;text-decoration:none;">
             <div style="width:44px;height:44px;border-radius:50%;background:#0F6E56;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;color:#E1F5EE;font-weight:500;">${contact.name.charAt(0).toUpperCase()}</div>
