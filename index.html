@@ -399,7 +399,24 @@ function addEmergencyContact() {
   const name = document.getElementById("emergencyName").value.trim();
   const number = document.getElementById("emergencyNumber").value.trim();
   if (!name || !number) return;
+  
+  // Load existing contacts from localStorage first
+  const saved = localStorage.getItem("dawai_profile");
+  if (saved) {
+    const profile = JSON.parse(saved);
+    if (profile.emergency) {
+      emergencyContacts = [...profile.emergency];
+    }
+  }
+  
   emergencyContacts.push({ name, number });
+  
+  // Save immediately to localStorage
+  const saved2 = localStorage.getItem("dawai_profile");
+  const profile = saved2 ? JSON.parse(saved2) : {};
+  profile.emergency = [...emergencyContacts];
+  localStorage.setItem("dawai_profile", JSON.stringify(profile));
+  
   renderEmergencyList();
   document.getElementById("emergencyName").value = '';
   document.getElementById("emergencyNumber").value = '';
@@ -424,11 +441,22 @@ function removeEmergency(i) {
   renderEmergencyList();
 }
 function saveProfile(){
-  const profile={name:document.getElementById("userName").value.trim(),age:document.getElementById("userAge").value.trim(),conditions:[...profileSelected.cond],allergies:[...profileSelected.allergy],medicines:[...profileSelected.med],bloodGroup:bloodGroup,emergency:[...emergencyContacts]};
+  const emergency = emergencyContacts.slice();
+  const profile={
+    name:document.getElementById("userName").value.trim(),
+    age:document.getElementById("userAge").value.trim(),
+    conditions:[...profileSelected.cond],
+    allergies:[...profileSelected.allergy],
+    medicines:[...profileSelected.med],
+    bloodGroup:bloodGroup,
+    emergency:emergency
+  };
   localStorage.setItem("dawai_profile",JSON.stringify(profile));
+  console.log("Saved emergency:", emergency);
   const name=profile.name||"उपयोगकर्ता";
   speak("प्रोफ़ाइल सुरक्षित हो गई। शाबाश "+name+"!",'hi');
   setTimeout(()=>hideProfile(),1500);
+}
 }
 function loadProfileFromStorage(){
   const saved=localStorage.getItem("dawai_profile");if(!saved)return;
