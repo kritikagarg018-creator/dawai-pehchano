@@ -700,7 +700,7 @@ const CONDITION_INFO={
   titleHi:"जोड़ों का दर्द",titleEn:"Joint pain",
   whatHi:"घुटने, कमर, कंधे या हाथ-पैर के जोड़ों में दर्द और अकड़न।",
   whatEn:"Pain and stiffness in the knees, back, shoulders or limbs.",
-  careHi:["रोज़ हल्की कसरत और थोड़ा चलना","एक ही position में देर तक न रहें","गर्म सिकाई से आराम मिलता है","बाथरूम में फिसलन से बचें, सहारा पकड़कर चलें"],
+  careHi:["रोज़ हल्की कसरत और थोड़ा चलना","एक ही मुद्रा में देर तक न रहें","गर्म सिकाई से आराम मिलता है","बाथरूम में फिसलन से बचें, सहारा पकड़कर चलें"],
   careEn:["Gentle exercise and a little walking every day","Do not stay in one position for long","A warm compress gives relief","Avoid slippery bathroom floors — use support while walking"],
   warnHi:["गिरने के बाद दर्द और सूजन","जोड़ पर वज़न डालना नामुमकिन हो जाए","सुन्नपन या झुनझुनी के साथ दर्द"],
   warnEn:["Pain and swelling after a fall","Becoming unable to put any weight on the joint","Pain along with numbness or tingling"]
@@ -916,17 +916,63 @@ function speakMedicine(medicineKey,lang){
   speak((lang==='hi'?info.scheduleHindi:info.scheduleEnglish)+" "+status,lang);
 }
 
+// Browsers garble or cut off long utterances, so long text is spoken
+// as a queue of short sentence-sized pieces instead of one big block.
+function splitForSpeech(text){
+  const MAX=170;
+  const sentences=[];
+  let cur='';
+  for(let i=0;i<text.length;i++){
+    cur+=text[i];
+    const ch=text[i];
+    if(ch==='\u0964'||ch==='.'||ch==='!'||ch==='?'){
+      if(cur.trim())sentences.push(cur.trim());
+      cur='';
+    }
+  }
+  if(cur.trim())sentences.push(cur.trim());
+  const out=[];
+  let buf='';
+  for(let i=0;i<sentences.length;i++){
+    const s=sentences[i];
+    if(((buf?buf+' ':'')+s).length<=MAX){
+      buf=(buf?buf+' ':'')+s;
+    }else{
+      if(buf){out.push(buf);buf='';}
+      if(s.length<=MAX){
+        buf=s;
+      }else{
+        let rest=s;
+        while(rest.length>MAX){
+          let cut=rest.lastIndexOf(' ',MAX);
+          if(cut<40)cut=MAX;
+          out.push(rest.slice(0,cut).trim());
+          rest=rest.slice(cut).trim();
+        }
+        buf=rest;
+      }
+    }
+  }
+  if(buf)out.push(buf);
+  return out.length?out:[text];
+}
+
 function speak(text,lang){
   window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  if(lang==='hi'){if(selectedHindiVoice)u.voice=selectedHindiVoice;u.lang='hi-IN';u.rate=0.82;}
-  else{if(selectedEnglishVoice)u.voice=selectedEnglishVoice;u.lang='en-US';u.rate=0.88;}
   const hBtn=document.getElementById("speakHindiBtn");
   const eBtn=document.getElementById("speakEnglishBtn");
   if(hBtn)hBtn.classList.toggle("speaking",lang==='hi');
   if(eBtn)eBtn.classList.toggle("speaking",lang==='en');
-  u.onend=function(){if(hBtn)hBtn.classList.remove("speaking");if(eBtn)eBtn.classList.remove("speaking");};
-  window.speechSynthesis.speak(u);
+  const stop=function(){if(hBtn)hBtn.classList.remove("speaking");if(eBtn)eBtn.classList.remove("speaking");};
+  const parts=splitForSpeech(text);
+  for(let i=0;i<parts.length;i++){
+    const u=new SpeechSynthesisUtterance(parts[i]);
+    if(lang==='hi'){if(selectedHindiVoice)u.voice=selectedHindiVoice;u.lang='hi-IN';u.rate=0.80;}
+    else{if(selectedEnglishVoice)u.voice=selectedEnglishVoice;u.lang='en-US';u.rate=0.88;}
+    u.pitch=1.0;
+    if(i===parts.length-1){u.onend=stop;u.onerror=stop;}
+    window.speechSynthesis.speak(u);
+  }
 }
 
 function setBadge(type,text){const b=document.getElementById("statusBadge");b.className="status-badge "+type;b.textContent=text;}
