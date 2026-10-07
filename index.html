@@ -123,6 +123,29 @@
     .avatar-display{width:64px;height:64px;border-radius:50%;background:#E1F5EE;border:2px solid #9FE1CB;display:flex;align-items:center;justify-content:center;font-family:'Tiro Devanagari Hindi',serif;font-size:1.2rem;font-weight:500;color:#085041;flex-shrink:0;}
     /* SOS */
     #sosBtn{position:fixed;bottom:28px;right:20px;width:64px;height:64px;border-radius:50%;background:#E24B4A;border:3px solid #fff;box-shadow:0 4px 20px rgba(226,75,74,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:999;user-select:none;}
+    /* CONDITIONS */
+    .cond-summary{background:var(--card-bg);border-radius:24px;box-shadow:var(--shadow);width:100%;max-width:580px;margin:16px 16px 0 16px;padding:20px;border:1.5px solid rgba(92,58,30,0.08);}
+    .cond-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 16px;margin-bottom:9px;border-radius:14px;background:#FAEEDA;border:1.5px solid #FAC775;color:#633806;font-family:'Tiro Devanagari Hindi',serif;font-size:1.02rem;cursor:pointer;text-align:left;gap:10px;}
+    .cond-btn:hover{background:#F4DCB4;}
+    .cond-btn .arrow{font-size:1.1rem;opacity:0.55;flex-shrink:0;}
+    .cond-empty{font-size:0.8rem;color:var(--bark);opacity:0.6;line-height:1.6;}
+    #condPopup{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1000;align-items:flex-end;justify-content:center;}
+    .cond-sheet{background:#FFFDF7;border-radius:24px 24px 0 0;padding:22px 20px 34px 20px;width:100%;max-width:580px;max-height:86vh;overflow-y:auto;}
+    .cond-sheet-title{font-family:'Tiro Devanagari Hindi',serif;font-size:1.35rem;color:var(--saffron);line-height:1.25;margin-bottom:16px;}
+    .cond-block{margin-bottom:16px;}
+    .cond-h{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--bark);opacity:0.6;margin-bottom:7px;}
+    .cond-body{font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;color:var(--deep);line-height:1.65;}
+    .cond-li{display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;font-family:'Tiro Devanagari Hindi',serif;font-size:0.98rem;color:var(--deep);line-height:1.6;}
+    .cond-li .dot{color:var(--leaf);flex-shrink:0;}
+    .cond-warn{background:#FCF3F3;border:1.5px solid #F0C9C9;border-radius:16px;padding:15px 16px;margin-top:4px;}
+    .cond-warn .cond-h{color:#A32D2D;opacity:1;font-weight:500;}
+    .cond-warn .cond-li{color:#6E2020;}
+    .cond-warn .cond-li .dot{color:#C05252;}
+    .cond-warn-foot{font-family:'Tiro Devanagari Hindi',serif;font-size:0.92rem;color:#A32D2D;margin-top:9px;padding-top:9px;border-top:1px solid #F0C9C9;}
+    .cond-note{font-family:'Tiro Devanagari Hindi',serif;font-size:0.84rem;color:var(--bark);opacity:0.75;line-height:1.6;margin-top:16px;padding-top:12px;border-top:1px solid rgba(92,58,30,0.12);}
+    .cond-actions{display:flex;gap:10px;margin-top:16px;}
+    .cond-speak{flex:1;padding:14px;background:var(--leaf);color:#fff;border:none;border-radius:13px;font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;cursor:pointer;}
+    .cond-close{flex:1;padding:14px;background:rgba(92,58,30,0.08);color:var(--bark);border:none;border-radius:13px;font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;cursor:pointer;}
     footer{margin-top:32px;font-size:0.68rem;color:var(--bark);opacity:0.4;text-align:center;letter-spacing:0.1em;text-transform:uppercase;}
     .en-text{transition:opacity 0.3s;}
     .hindi-mode .en-text{display:none;}
@@ -183,6 +206,11 @@
       </div>
     </div>
     <div id="bottomStatus">बटन दबाएं और शुरू करें &nbsp;·&nbsp; Press button to begin</div>
+  </div>
+
+  <div class="cond-summary">
+    <div class="rx-title"><span>मेरी बीमारियाँ <span class="en-text">· My Conditions</span></span></div>
+    <div id="condList"></div>
   </div>
 </div>
 
@@ -267,9 +295,11 @@
     <div class="p-title" style="color:#A32D2D;">🚨 आपातकालीन संपर्क · Emergency Contacts</div>
     <div class="p-sublabel">परिवार के सदस्यों के नंबर जोड़ें · Add family member numbers</div>
     <div id="emergencyList" style="margin-bottom:10px;"></div>
-        <input class="name-input" type="text" id="emergencyName" placeholder="नाम · Name">
-    <input class="name-input" type="tel" id="emergencyNumber" placeholder="नंबर · Number">
-    <button class="add-btn-small" style="width:100%;padding:14px;background:#FCEBEB;color:#791F1F;border-color:#F7C1C1;font-size:1rem;" onclick="addEmergencyContact()">+ जोड़ें · Add contact</button>
+    <div class="add-row">
+      <input type="text" id="emergencyName" placeholder="नाम · Name">
+      <input type="tel" id="emergencyNumber" placeholder="नंबर · Number">
+      <button class="add-btn-small" style="background:#FCEBEB;color:#791F1F;border-color:#F7C1C1;" onclick="addEmergencyContact()">+ जोड़ें</button>
+    </div>
   </div>
 
   <div class="p-card">
@@ -321,6 +351,17 @@
     <div style="font-size:0.8rem;color:#5C3A1E;text-align:center;opacity:0.7;margin-bottom:20px;">किसे कॉल करें? · Who to call?</div>
     <div id="sosOptions"></div>
     <button onclick="closeSOS()" style="width:100%;margin-top:12px;padding:14px;background:rgba(92,58,30,0.08);border:none;border-radius:12px;font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;color:#5C3A1E;cursor:pointer;">रद्द करें · Cancel</button>
+  </div>
+</div>
+
+<div id="condPopup">
+  <div class="cond-sheet">
+    <div class="cond-sheet-title" id="condSheetTitle"></div>
+    <div id="condSheetBody"></div>
+    <div class="cond-actions">
+      <button class="cond-speak" onclick="speakCondition()">🔊 सुनें</button>
+      <button class="cond-close" onclick="closeCondition()">बंद करें · Close</button>
+    </div>
   </div>
 </div>
 
@@ -526,6 +567,7 @@ function saveProfile(){
   localStorage.setItem("dawai_profile",JSON.stringify(profile));
   const name=profile.name||"उपयोगकर्ता";
   if(name) document.getElementById("profileIconBtn").textContent=name.charAt(0).toUpperCase()+" / Profile";
+  updateConditionsCard();
   speak("प्रोफ़ाइल सुरक्षित हो गई। शाबाश "+name+"!",'hi');
   setTimeout(()=>hideProfile(),1500);
 }
@@ -588,6 +630,142 @@ function closeSOS(){
 }
 
 // ── VOICE ─────────────────────────────────────────────────────────────────
+// ── CONDITION INFORMATION ─────────────────────────────────────
+const CONDITION_INFO={
+ "गठिया · Arthritis":{
+  titleHi:"गठिया",titleEn:"Arthritis",
+  whatHi:"जोड़ों में सूजन, अकड़न और दर्द की बीमारी। उम्र के साथ जोड़ घिसने लगते हैं।",
+  whatEn:"A condition where joints become swollen, stiff and painful. Joints wear down with age.",
+  careHi:["रोज़ थोड़ा-थोड़ा चलें — एक जगह देर तक न बैठें","गर्म पानी की सिकाई से अकड़न कम होती है","वज़न संभालकर रखें — ज़्यादा वज़न घुटनों पर बोझ डालता है","सीढ़ियाँ धीरे और रेलिंग पकड़कर चढ़ें"],
+  careEn:["Walk a little every day — do not sit in one place too long","Warm compress helps reduce stiffness","Keep weight in check — extra weight strains the knees","Climb stairs slowly, holding the railing"],
+  warnHi:["जोड़ अचानक बहुत लाल, गरम और सूज जाए","बुखार के साथ जोड़ों में दर्द","चलना-फिरना अचानक बहुत मुश्किल हो जाए"],
+  warnEn:["A joint suddenly becomes very red, warm and swollen","Joint pain along with fever","Walking or moving suddenly becomes very difficult"]
+ },
+ "मधुमेह · Diabetes":{
+  titleHi:"मधुमेह (शुगर)",titleEn:"Diabetes",
+  whatHi:"खून में शक्कर की मात्रा ज़्यादा रहने की बीमारी। इसे दवाई, खाने और चलने से संभाला जाता है।",
+  whatEn:"A condition where the sugar level in the blood stays higher than normal. It is managed with medicine, food and activity.",
+  careHi:["खाना रोज़ लगभग एक ही समय पर खाएं","रोज़ पैरों को देखें — कहीं कटा, छाला या घाव तो नहीं","नंगे पैर न चलें, चप्पल पहनें","डॉक्टर के बताए अनुसार शुगर जाँचते रहें"],
+  careEn:["Eat meals at roughly the same time each day","Check your feet daily for cuts, blisters or wounds","Do not walk barefoot — always wear slippers","Keep checking sugar as advised by your doctor"],
+  warnHi:["बहुत पसीना, कंपकंपी, घबराहट या अचानक कमज़ोरी","पैर का घाव जो भर न रहा हो","बार-बार पेशाब और बहुत ज़्यादा प्यास"],
+  warnEn:["Heavy sweating, shaking, uneasiness or sudden weakness","A wound on the foot that is not healing","Passing urine very often along with great thirst"]
+ },
+ "BP · High BP":{
+  titleHi:"बी पी (उच्च रक्तचाप)",titleEn:"High Blood Pressure",
+  whatHi:"खून का दबाव सामान्य से ज़्यादा रहना। अक्सर कोई लक्षण नहीं दिखते, इसलिए दवाई रोज़ ज़रूरी है।",
+  whatEn:"Blood pressure stays higher than normal. It often has no symptoms, which is why daily medicine matters.",
+  careHi:["खाने में नमक कम करें","दवाई रोज़ एक ही समय पर लें — अच्छा महसूस हो तब भी","लेटे से उठते समय धीरे उठें","घर पर बी पी नापते रहें और लिखकर रखें"],
+  careEn:["Reduce salt in food","Take medicine at the same time daily — even when feeling well","Get up slowly from lying down","Check BP at home and write the readings down"],
+  warnHi:["बहुत तेज़ सिरदर्द के साथ चक्कर","सीने में दर्द या भारीपन","साँस फूलना या धुंधला दिखाई देना","अचानक बोलने या हाथ-पैर हिलाने में दिक्कत"],
+  warnEn:["Very severe headache with dizziness","Chest pain or heaviness","Breathlessness or blurred vision","Sudden trouble speaking or moving an arm or leg"]
+ },
+ "एसिडिटी · Acidity":{
+  titleHi:"एसिडिटी",titleEn:"Acidity",
+  whatHi:"पेट का अम्ल ऊपर की ओर आने से सीने या पेट में जलन होना।",
+  whatEn:"Stomach acid rising upward, causing burning in the chest or stomach.",
+  careHi:["खाने के तुरंत बाद न लेटें — दो-तीन घंटे रुकें","एक बार में कम, पर दिन में कई बार खाएं","तला और बहुत मसालेदार खाना कम करें","सोते समय सिर की तरफ तकिया थोड़ा ऊंचा रखें"],
+  careEn:["Do not lie down right after eating — wait two to three hours","Eat smaller amounts, more often through the day","Cut down on fried and very spicy food","Keep the pillow slightly raised while sleeping"],
+  warnHi:["सीने की जलन जो बाएँ हाथ या जबड़े तक जाए","उल्टी में खून या काला रंग","निगलने में दर्द या खाना अटकना","बिना वजह वज़न घटना"],
+  warnEn:["Burning in the chest that spreads to the left arm or jaw","Blood or black colour in vomit","Pain on swallowing, or food getting stuck","Losing weight without reason"]
+ },
+ "दिल की बीमारी · Heart disease":{
+  titleHi:"दिल की बीमारी",titleEn:"Heart disease",
+  whatHi:"दिल तक खून पहुँचाने वाली नलियों की तकलीफ़। दवाई नियमित लेना सबसे ज़रूरी है।",
+  whatEn:"A problem in the vessels that carry blood to the heart. Taking medicine regularly matters most.",
+  careHi:["दवाई कभी अपने आप बंद न करें","भारी वज़न न उठाएं","डॉक्टर की सलाह अनुसार रोज़ हल्की सैर","तंबाकू और धूम्रपान बिल्कुल नहीं"],
+  careEn:["Never stop the medicine on your own","Do not lift heavy weights","A gentle daily walk, as advised by your doctor","No tobacco and no smoking at all"],
+  warnHi:["सीने में दर्द, भारीपन या दबाव","दर्द का बाएँ हाथ, गर्दन या जबड़े तक जाना","ठंडा पसीना और घबराहट","आराम करते हुए भी साँस फूलना"],
+  warnEn:["Chest pain, heaviness or pressure","Pain spreading to the left arm, neck or jaw","Cold sweat and uneasiness","Breathlessness even while resting"],
+  urgent:true
+ },
+ "थायराइड · Thyroid":{
+  titleHi:"थायराइड",titleEn:"Thyroid",
+  whatHi:"गले में मौजूद थायराइड ग्रंथि का ठीक से काम न करना। इससे शरीर की गति धीमी या तेज़ हो जाती है।",
+  whatEn:"The thyroid gland in the neck not working properly, making the body slow down or speed up.",
+  careHi:["दवाई रोज़ सुबह खाली पेट, एक ही समय पर","दवाई के बाद आधा घंटा कुछ न खाएं","डॉक्टर के बताए अनुसार जाँच कराते रहें","दवाई अपने आप कम या बंद न करें"],
+  careEn:["Take the medicine every morning on an empty stomach, at the same time","Eat nothing for half an hour after the medicine","Get tests done as advised by your doctor","Do not reduce or stop the medicine on your own"],
+  warnHi:["दिल का बहुत तेज़ धड़कना","बहुत ज़्यादा थकान या सुस्ती","गले में सूजन बढ़ना","बिना वजह वज़न तेज़ी से घटना या बढ़ना"],
+  warnEn:["Very fast heartbeat","Extreme tiredness or sluggishness","Increasing swelling in the neck","Rapid weight loss or gain without reason"]
+ },
+ "आंखों की बीमारी · Eye condition":{
+  titleHi:"आँखों की बीमारी",titleEn:"Eye condition",
+  whatHi:"उम्र के साथ आँखों में बदलाव — मोतियाबिंद, सूखापन या इन्फेक्शन।",
+  whatEn:"Changes in the eyes with age — cataract, dryness or infection.",
+  careHi:["ड्रॉप डालने से पहले हाथ ज़रूर धोएं","ड्रॉप की नोक आँख या उंगली से न छुएं","तेज़ धूप में चश्मा पहनें","घर में अच्छी रोशनी रखें ताकि ठोकर न लगे"],
+  careEn:["Always wash hands before putting in drops","Do not let the dropper tip touch the eye or fingers","Wear glasses in bright sunlight","Keep the house well lit to avoid tripping"],
+  warnHi:["अचानक रोशनी कम होना या धुंधला दिखना","आँख में तेज़ दर्द और लाली","रोशनी के चारों ओर गोल घेरे दिखना","आँखों के आगे काले धब्बे या चमक"],
+  warnEn:["Sudden loss of vision or blurring","Severe pain and redness in the eye","Seeing rings or halos around lights","Black spots or flashes in front of the eyes"]
+ },
+ "जोड़ों का दर्द · Joint pain":{
+  titleHi:"जोड़ों का दर्द",titleEn:"Joint pain",
+  whatHi:"घुटने, कमर, कंधे या हाथ-पैर के जोड़ों में दर्द और अकड़न।",
+  whatEn:"Pain and stiffness in the knees, back, shoulders or limbs.",
+  careHi:["रोज़ हल्की कसरत और थोड़ा चलना","एक ही position में देर तक न रहें","गर्म सिकाई से आराम मिलता है","बाथरूम में फिसलन से बचें, सहारा पकड़कर चलें"],
+  careEn:["Gentle exercise and a little walking every day","Do not stay in one position for long","A warm compress gives relief","Avoid slippery bathroom floors — use support while walking"],
+  warnHi:["गिरने के बाद दर्द और सूजन","जोड़ पर वज़न डालना नामुमकिन हो जाए","सुन्नपन या झुनझुनी के साथ दर्द"],
+  warnEn:["Pain and swelling after a fall","Becoming unable to put any weight on the joint","Pain along with numbness or tingling"]
+ }
+};
+
+let currentCondition=null;
+
+function getSelectedConditions(){
+  const saved=localStorage.getItem("dawai_profile");
+  if(!saved)return [];
+  try{const p=JSON.parse(saved);return p.conditions||[];}catch(e){return [];}
+}
+
+function updateConditionsCard(){
+  const list=document.getElementById("condList");
+  if(!list)return;
+  const picked=getSelectedConditions().filter(c=>CONDITION_INFO[c]);
+  if(picked.length===0){
+    list.innerHTML='<div class="cond-empty">\u0905\u092a\u0928\u0940 \u092c\u0940\u092e\u093e\u0930\u093f\u092f\u093e\u0901 \u091c\u094b\u0921\u093c\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u090a\u092a\u0930 \u092a\u094d\u0930\u094b\u092b\u093c\u093e\u0907\u0932 \u092e\u0947\u0902 \u091c\u093e\u090f\u0902\u0964<br><span class="en-text">Add your conditions in the Profile above to see guidance here.</span></div>';
+    return;
+  }
+  list.innerHTML=picked.map(function(key){
+    const info=CONDITION_INFO[key];
+    const label=currentLang==='hi'?info.titleHi:info.titleEn;
+    return '<button class="cond-btn" onclick="showCondition(\''+key+'\')"><span>'+label+'</span><span class="arrow">\u203a</span></button>';
+  }).join("");
+}
+
+function showCondition(key){
+  const info=CONDITION_INFO[key];
+  if(!info)return;
+  currentCondition=key;
+  const hi=currentLang==='hi';
+  document.getElementById("condSheetTitle").textContent=hi?info.titleHi:info.titleEn;
+  const care=(hi?info.careHi:info.careEn).map(function(t){return '<div class="cond-li"><span class="dot">\u2022</span><span>'+t+'</span></div>';}).join("");
+  const warn=(hi?info.warnHi:info.warnEn).map(function(t){return '<div class="cond-li"><span class="dot">\u2022</span><span>'+t+'</span></div>';}).join("");
+  const foot=info.urgent
+    ? (hi?'\u0910\u0938\u093e \u0939\u094b \u0924\u094b \u0907\u0902\u0924\u091c\u093c\u093e\u0930 \u0928 \u0915\u0930\u0947\u0902 \u2014 \u0924\u0941\u0930\u0902\u0924  112 \u092f\u093e 108 \u092a\u0930 \u0915\u0949\u0932 \u0915\u0930\u0947\u0902\u0964':'If this happens, do not wait \u2014 call 112 or 108 at once.')
+    : (hi?'\u0910\u0938\u093e \u0939\u094b \u0924\u094b \u0921\u0949\u0915\u094d\u091f\u0930 \u0915\u094b \u091c\u0932\u094d\u0926\u0940 \u0926\u093f\u0916\u093e\u090f\u0902\u0964':'If this happens, see your doctor soon.');
+  document.getElementById("condSheetBody").innerHTML=
+    '<div class="cond-block"><div class="cond-h">'+(hi?'\u092f\u0939 \u0915\u094d\u092f\u093e \u0939\u0948':'What it is')+'</div><div class="cond-body">'+(hi?info.whatHi:info.whatEn)+'</div></div>'
+   +'<div class="cond-block"><div class="cond-h">'+(hi?'\u0930\u094b\u091c\u093c\u093e\u0928\u093e \u0927\u094d\u092f\u093e\u0928 \u0930\u0916\u0947\u0902':'Daily care')+'</div>'+care+'</div>'
+   +'<div class="cond-warn"><div class="cond-h">\u26a0\ufe0f '+(hi?'\u0921\u0949\u0915\u094d\u091f\u0930 \u0915\u094b \u0915\u092c \u0926\u093f\u0916\u093e\u090f\u0902':'When to call the doctor')+'</div>'+warn+'<div class="cond-warn-foot">'+foot+'</div></div>'
+   +'<div class="cond-note">'+(hi?'\u092f\u0939 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0938\u093f\u0930\u094d\u092b\u093c \u0938\u092e\u091d\u0928\u0947 \u0914\u0930 \u092f\u093e\u0926 \u0926\u093f\u0932\u093e\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0939\u0948\u0964 \u0926\u0935\u093e\u0908 \u0914\u0930 \u0907\u0932\u093e\u091c \u0939\u092e\u0947\u0936\u093e \u0921\u0949\u0915\u094d\u091f\u0930 \u0915\u0940 \u0938\u0932\u093e\u0939 \u0938\u0947 \u0939\u0940 \u0915\u0930\u0947\u0902\u0964':'This information is only to help you understand and remember. Always follow your doctor for medicine and treatment.')+'</div>';
+  document.getElementById("condPopup").style.display="flex";
+}
+
+function closeCondition(){
+  window.speechSynthesis.cancel();
+  document.getElementById("condPopup").style.display="none";
+}
+
+function speakCondition(){
+  if(!currentCondition)return;
+  const info=CONDITION_INFO[currentCondition];
+  const hi=currentLang==='hi';
+  let t=(hi?info.titleHi:info.titleEn)+'\u0964 ';
+  t+=(hi?info.whatHi:info.whatEn)+' ';
+  t+=(hi?'\u0930\u094b\u091c\u093c\u093e\u0928\u093e \u0927\u094d\u092f\u093e\u0928 \u0930\u0916\u0947\u0902\u0964 ':'Daily care. ')+(hi?info.careHi:info.careEn).join('\u0964 ')+'\u0964 ';
+  t+=(hi?'\u0921\u0949\u0915\u094d\u091f\u0930 \u0915\u094b \u0915\u092c \u0926\u093f\u0916\u093e\u090f\u0902\u0964 ':'When to call the doctor. ')+(hi?info.warnHi:info.warnEn).join('\u0964 ')+'\u0964 ';
+  t+=info.urgent?(hi?'\u0910\u0938\u093e \u0939\u094b \u0924\u094b \u0924\u0941\u0930\u0902\u0924 \u090f\u0915 \u090f\u0915 \u0926\u094b \u092f\u093e \u090f\u0915 \u0936\u0942\u0928\u094d\u092f \u0906\u0920 \u092a\u0930 \u0915\u0949\u0932 \u0915\u0930\u0947\u0902\u0964':'If this happens, call 112 or 108 at once.'):(hi?'\u0910\u0938\u093e \u0939\u094b \u0924\u094b \u0921\u0949\u0915\u094d\u091f\u0930 \u0915\u094b \u091c\u0932\u094d\u0926\u0940 \u0926\u093f\u0916\u093e\u090f\u0902\u0964':'If this happens, see your doctor soon.');
+  speak(t,currentLang);
+}
+
 let selectedEnglishVoice=null,selectedHindiVoice=null;
 function loadVoices(){
   const voices=window.speechSynthesis.getVoices();
@@ -610,10 +788,12 @@ function setLang(lang){
   document.getElementById('hindiSlotsTitle').style.display=lang==='hi'?'block':'none';
   document.body.classList.toggle('hindi-mode',lang==='hi');
   updateRxSummary();
+  updateConditionsCard();
 }
 
 setLang('hi');
 updateRxSummary();
+updateConditionsCard();
 
 const savedFontSize=localStorage.getItem('dawai_fontSize');
 if(savedFontSize)setFontSize(savedFontSize);
