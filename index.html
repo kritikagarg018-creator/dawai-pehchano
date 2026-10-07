@@ -128,6 +128,9 @@
     .cond-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 16px;margin-bottom:9px;border-radius:14px;background:#FAEEDA;border:1.5px solid #FAC775;color:#633806;font-family:'Tiro Devanagari Hindi',serif;font-size:1.02rem;cursor:pointer;text-align:left;gap:10px;}
     .cond-btn:hover{background:#F4DCB4;}
     .cond-btn .arrow{font-size:1.1rem;opacity:0.55;flex-shrink:0;}
+    .cond-btn-plain{background:rgba(92,58,30,0.05);border-color:rgba(92,58,30,0.15);color:var(--bark);}
+    .cond-btn-plain:hover{background:rgba(92,58,30,0.10);}
+    .cond-btn .tag{font-size:0.72rem;opacity:0.7;font-family:'DM Mono',monospace;}
     .cond-empty{font-size:0.8rem;color:var(--bark);opacity:0.6;line-height:1.6;}
     #condPopup{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1000;align-items:flex-end;justify-content:center;}
     .cond-sheet{background:#FFFDF7;border-radius:24px 24px 0 0;padding:22px 20px 34px 20px;width:100%;max-width:580px;max-height:86vh;overflow-y:auto;}
@@ -639,7 +642,8 @@ const CONDITION_INFO={
   careHi:["रोज़ थोड़ा-थोड़ा चलें — एक जगह देर तक न बैठें","गर्म पानी की सिकाई से अकड़न कम होती है","वज़न संभालकर रखें — ज़्यादा वज़न घुटनों पर बोझ डालता है","सीढ़ियाँ धीरे और रेलिंग पकड़कर चढ़ें"],
   careEn:["Walk a little every day — do not sit in one place too long","Warm compress helps reduce stiffness","Keep weight in check — extra weight strains the knees","Climb stairs slowly, holding the railing"],
   warnHi:["जोड़ अचानक बहुत लाल, गरम और सूज जाए","बुखार के साथ जोड़ों में दर्द","चलना-फिरना अचानक बहुत मुश्किल हो जाए"],
-  warnEn:["A joint suddenly becomes very red, warm and swollen","Joint pain along with fever","Walking or moving suddenly becomes very difficult"]
+  warnEn:["A joint suddenly becomes very red, warm and swollen","Joint pain along with fever","Walking or moving suddenly becomes very difficult"],
+  match:["arthritis","गठिया","rheumatoid arthritis","osteoarthritis","आर्थराइटिस"]
  },
  "मधुमेह · Diabetes":{
   titleHi:"मधुमेह (शुगर)",titleEn:"Diabetes",
@@ -648,7 +652,8 @@ const CONDITION_INFO={
   careHi:["खाना रोज़ लगभग एक ही समय पर खाएं","रोज़ पैरों को देखें — कहीं कटा, छाला या घाव तो नहीं","नंगे पैर न चलें, चप्पल पहनें","डॉक्टर के बताए अनुसार शुगर जाँचते रहें"],
   careEn:["Eat meals at roughly the same time each day","Check your feet daily for cuts, blisters or wounds","Do not walk barefoot — always wear slippers","Keep checking sugar as advised by your doctor"],
   warnHi:["बहुत पसीना, कंपकंपी, घबराहट या अचानक कमज़ोरी","पैर का घाव जो भर न रहा हो","बार-बार पेशाब और बहुत ज़्यादा प्यास"],
-  warnEn:["Heavy sweating, shaking, uneasiness or sudden weakness","A wound on the foot that is not healing","Passing urine very often along with great thirst"]
+  warnEn:["Heavy sweating, shaking, uneasiness or sudden weakness","A wound on the foot that is not healing","Passing urine very often along with great thirst"],
+  match:["diabetes","मधुमेह","sugar","शुगर","diabetes mellitus","डायबिटीज"]
  },
  "BP · High BP":{
   titleHi:"बी पी (उच्च रक्तचाप)",titleEn:"High Blood Pressure",
@@ -657,7 +662,8 @@ const CONDITION_INFO={
   careHi:["खाने में नमक कम करें","दवाई रोज़ एक ही समय पर लें — अच्छा महसूस हो तब भी","लेटे से उठते समय धीरे उठें","घर पर बी पी नापते रहें और लिखकर रखें"],
   careEn:["Reduce salt in food","Take medicine at the same time daily — even when feeling well","Get up slowly from lying down","Check BP at home and write the readings down"],
   warnHi:["बहुत तेज़ सिरदर्द के साथ चक्कर","सीने में दर्द या भारीपन","साँस फूलना या धुंधला दिखाई देना","अचानक बोलने या हाथ-पैर हिलाने में दिक्कत"],
-  warnEn:["Very severe headache with dizziness","Chest pain or heaviness","Breathlessness or blurred vision","Sudden trouble speaking or moving an arm or leg"]
+  warnEn:["Very severe headache with dizziness","Chest pain or heaviness","Breathlessness or blurred vision","Sudden trouble speaking or moving an arm or leg"],
+  match:["high bp","bp","hypertension","high blood pressure","ब्लड प्रेशर","उच्च रक्तचाप","रक्तचाप"]
  },
  "एसिडिटी · Acidity":{
   titleHi:"एसिडिटी",titleEn:"Acidity",
@@ -666,7 +672,8 @@ const CONDITION_INFO={
   careHi:["खाने के तुरंत बाद न लेटें — दो-तीन घंटे रुकें","एक बार में कम, पर दिन में कई बार खाएं","तला और बहुत मसालेदार खाना कम करें","सोते समय सिर की तरफ तकिया थोड़ा ऊंचा रखें"],
   careEn:["Do not lie down right after eating — wait two to three hours","Eat smaller amounts, more often through the day","Cut down on fried and very spicy food","Keep the pillow slightly raised while sleeping"],
   warnHi:["सीने की जलन जो बाएँ हाथ या जबड़े तक जाए","उल्टी में खून या काला रंग","निगलने में दर्द या खाना अटकना","बिना वजह वज़न घटना"],
-  warnEn:["Burning in the chest that spreads to the left arm or jaw","Blood or black colour in vomit","Pain on swallowing, or food getting stuck","Losing weight without reason"]
+  warnEn:["Burning in the chest that spreads to the left arm or jaw","Blood or black colour in vomit","Pain on swallowing, or food getting stuck","Losing weight without reason"],
+  match:["acidity","एसिडिटी","gas","गैस","acid reflux","gerd","heartburn","अम्लता"]
  },
  "दिल की बीमारी · Heart disease":{
   titleHi:"दिल की बीमारी",titleEn:"Heart disease",
@@ -676,7 +683,8 @@ const CONDITION_INFO={
   careEn:["Never stop the medicine on your own","Do not lift heavy weights","A gentle daily walk, as advised by your doctor","No tobacco and no smoking at all"],
   warnHi:["सीने में दर्द, भारीपन या दबाव","दर्द का बाएँ हाथ, गर्दन या जबड़े तक जाना","ठंडा पसीना और घबराहट","आराम करते हुए भी साँस फूलना"],
   warnEn:["Chest pain, heaviness or pressure","Pain spreading to the left arm, neck or jaw","Cold sweat and uneasiness","Breathlessness even while resting"],
-  urgent:true
+  urgent:true,
+  match:["heart disease","दिल की बीमारी","heart","दिल","cardiac","heart problem","हृदय रोग"]
  },
  "थायराइड · Thyroid":{
   titleHi:"थायराइड",titleEn:"Thyroid",
@@ -685,7 +693,8 @@ const CONDITION_INFO={
   careHi:["दवाई रोज़ सुबह खाली पेट, एक ही समय पर","दवाई के बाद आधा घंटा कुछ न खाएं","डॉक्टर के बताए अनुसार जाँच कराते रहें","दवाई अपने आप कम या बंद न करें"],
   careEn:["Take the medicine every morning on an empty stomach, at the same time","Eat nothing for half an hour after the medicine","Get tests done as advised by your doctor","Do not reduce or stop the medicine on your own"],
   warnHi:["दिल का बहुत तेज़ धड़कना","बहुत ज़्यादा थकान या सुस्ती","गले में सूजन बढ़ना","बिना वजह वज़न तेज़ी से घटना या बढ़ना"],
-  warnEn:["Very fast heartbeat","Extreme tiredness or sluggishness","Increasing swelling in the neck","Rapid weight loss or gain without reason"]
+  warnEn:["Very fast heartbeat","Extreme tiredness or sluggishness","Increasing swelling in the neck","Rapid weight loss or gain without reason"],
+  match:["thyroid","थायराइड","hypothyroidism","hyperthyroidism","थाइरॉइड"]
  },
  "आंखों की बीमारी · Eye condition":{
   titleHi:"आँखों की बीमारी",titleEn:"Eye condition",
@@ -694,7 +703,8 @@ const CONDITION_INFO={
   careHi:["ड्रॉप डालने से पहले हाथ ज़रूर धोएं","ड्रॉप की नोक आँख या उंगली से न छुएं","तेज़ धूप में चश्मा पहनें","घर में अच्छी रोशनी रखें ताकि ठोकर न लगे"],
   careEn:["Always wash hands before putting in drops","Do not let the dropper tip touch the eye or fingers","Wear glasses in bright sunlight","Keep the house well lit to avoid tripping"],
   warnHi:["अचानक रोशनी कम होना या धुंधला दिखना","आँख में तेज़ दर्द और लाली","रोशनी के चारों ओर गोल घेरे दिखना","आँखों के आगे काले धब्बे या चमक"],
-  warnEn:["Sudden loss of vision or blurring","Severe pain and redness in the eye","Seeing rings or halos around lights","Black spots or flashes in front of the eyes"]
+  warnEn:["Sudden loss of vision or blurring","Severe pain and redness in the eye","Seeing rings or halos around lights","Black spots or flashes in front of the eyes"],
+  match:["eye condition","आंखों की बीमारी","eye problem","आँखों की बीमारी","dry eyes","eye infection"]
  },
  "जोड़ों का दर्द · Joint pain":{
   titleHi:"जोड़ों का दर्द",titleEn:"Joint pain",
@@ -703,7 +713,206 @@ const CONDITION_INFO={
   careHi:["रोज़ हल्की कसरत और थोड़ा चलना","एक ही मुद्रा में देर तक न रहें","गर्म सिकाई से आराम मिलता है","बाथरूम में फिसलन से बचें, सहारा पकड़कर चलें"],
   careEn:["Gentle exercise and a little walking every day","Do not stay in one position for long","A warm compress gives relief","Avoid slippery bathroom floors — use support while walking"],
   warnHi:["गिरने के बाद दर्द और सूजन","जोड़ पर वज़न डालना नामुमकिन हो जाए","सुन्नपन या झुनझुनी के साथ दर्द"],
-  warnEn:["Pain and swelling after a fall","Becoming unable to put any weight on the joint","Pain along with numbness or tingling"]
+  warnEn:["Pain and swelling after a fall","Becoming unable to put any weight on the joint","Pain along with numbness or tingling"],
+  match:["joint pain","जोड़ों का दर्द","knee pain","घुटने का दर्द","जोड़ों में दर्द"]
+ },
+ "हेपेटाइटिस बी · Hepatitis B":{
+  titleHi:"हेपेटाइटिस बी",titleEn:"Hepatitis B",
+  whatHi:"एक वायरस से होने वाली लीवर (जिगर) की बीमारी। कई बार सालों तक कोई लक्षण नहीं दिखते।",
+  whatEn:"A liver infection caused by a virus. It often shows no symptoms for years.",
+  careHi:["दवाई और जाँच डॉक्टर के बताए अनुसार नियमित कराते रहें","शराब बिल्कुल न लें — यह लीवर पर बोझ डालती है","कोई भी नई दवाई लेने से पहले डॉक्टर को यह बीमारी बताएं","रेज़र, टूथब्रश या सुई किसी के साथ साझा न करें"],
+  careEn:["Keep taking medicines and tests regularly as advised by your doctor","Avoid alcohol completely — it strains the liver","Tell any doctor about this condition before starting a new medicine","Do not share razors, toothbrushes or needles with anyone"],
+  warnHi:["आँखों या त्वचा का पीला पड़ना","पेट में सूजन या दाहिनी ओर दर्द","उल्टी में खून या मल का काला रंग","बहुत ज़्यादा थकान और भूख न लगना"],
+  warnEn:["Yellowing of the eyes or skin","Swelling of the stomach or pain on the right side","Blood in vomit or black stools","Severe tiredness with loss of appetite"],
+  match:["hepatitis b","hepatitis","हेपेटाइटिस बी","हेपेटाइटिस","liver disease","लीवर की बीमारी","जिगर की बीमारी"]
+ },
+ "अस्थमा · Asthma":{
+  titleHi:"अस्थमा (दमा)",titleEn:"Asthma",
+  whatHi:"साँस की नलियों के सिकुड़ने से साँस लेने में तकलीफ़ होना। यह आती-जाती रहती है।",
+  whatEn:"The airways narrow and make breathing difficult. It comes and goes.",
+  careHi:["इन्हेलर हमेशा पास रखें और सही तरीके से लें","धूल, धुआँ और तेज़ गंध से बचें","ठंडी हवा में मुँह और नाक ढककर निकलें","सर्दी-ज़ुकाम में ज़्यादा सावधानी रखें"],
+  careEn:["Always keep the inhaler nearby and use it correctly","Stay away from dust, smoke and strong smells","Cover the mouth and nose when going out in cold air","Be extra careful during a cold or cough"],
+  warnHi:["साँस इतनी फूले कि पूरा वाक्य न बोल पाएं","होंठ या नाखून नीले पड़ना","इन्हेलर लेने पर भी आराम न मिलना"],
+  warnEn:["Breathlessness so severe you cannot finish a sentence","Lips or nails turning blue","No relief even after using the inhaler"],
+  match:["asthma","अस्थमा","दमा","breathing problem","साँस की तकलीफ"],
+  urgent:true
+ },
+ "साँस की बीमारी · Lung disease":{
+  titleHi:"साँस की पुरानी बीमारी",titleEn:"Chronic lung disease (COPD)",
+  whatHi:"फेफड़ों की पुरानी बीमारी जिसमें साँस लेना मुश्किल होता जाता है। अक्सर धूम्रपान या धुएँ से होती है।",
+  whatEn:"A long-term lung condition that makes breathing progressively harder. Often caused by smoking or smoke.",
+  careHi:["धूम्रपान बिल्कुल बंद करें — यह सबसे ज़रूरी है","डॉक्टर के बताए इन्हेलर नियमित लें","धुएँ, धूल और प्रदूषण से बचें","साँस की हल्की कसरत रोज़ करें"],
+  careEn:["Stop smoking completely — this matters most","Use the prescribed inhaler regularly","Avoid smoke, dust and pollution","Do gentle breathing exercises daily"],
+  warnHi:["आराम करते हुए भी साँस फूलना","बलगम का रंग बदलना या उसमें खून आना","होंठ या नाखून नीले पड़ना","बुखार के साथ साँस की तकलीफ़ बढ़ना"],
+  warnEn:["Breathlessness even while resting","Change in colour of phlegm, or blood in it","Lips or nails turning blue","Worsening breathlessness along with fever"],
+  match:["copd","lung disease","फेफड़ों की बीमारी","साँस की बीमारी","chronic bronchitis","emphysema"],
+  urgent:true
+ },
+ "किडनी की बीमारी · Kidney disease":{
+  titleHi:"किडनी (गुर्दे) की बीमारी",titleEn:"Kidney disease",
+  whatHi:"गुर्दे खून साफ़ करने का काम ठीक से नहीं कर पाते। शुरू में अक्सर कोई लक्षण नहीं दिखते।",
+  whatEn:"The kidneys cannot clean the blood properly. In the early stages there are often no symptoms.",
+  careHi:["नमक और पैकेट-बंद खाना कम करें","पानी की मात्रा डॉक्टर की सलाह अनुसार ही लें","बिना पूछे दर्द की दवाई बिल्कुल न लें","खून और पेशाब की जाँच नियमित कराते रहें"],
+  careEn:["Cut down on salt and packaged food","Drink only as much water as your doctor advises","Never take painkillers without asking your doctor","Keep getting blood and urine tests done regularly"],
+  warnHi:["पेशाब बहुत कम होना या बिल्कुल बंद हो जाना","पैरों, चेहरे या आँखों के नीचे सूजन","साँस फूलना","लगातार उल्टी और बहुत कमज़ोरी"],
+  warnEn:["Passing very little urine, or none at all","Swelling in the feet, face or under the eyes","Breathlessness","Constant vomiting and severe weakness"],
+  match:["kidney disease","kidney","किडनी","गुर्दे की बीमारी","ckd","renal","kidney problem"]
+ },
+ "कोलेस्ट्रॉल · High cholesterol":{
+  titleHi:"कोलेस्ट्रॉल बढ़ना",titleEn:"High cholesterol",
+  whatHi:"खून में चिकनाई की मात्रा बढ़ जाना, जिससे नसें सिकुड़ सकती हैं। इसके अपने कोई लक्षण नहीं होते।",
+  whatEn:"Too much fat in the blood, which can narrow the vessels. It has no symptoms of its own.",
+  careHi:["तला-भुना, घी और मक्खन कम करें","रोज़ सैर करें — आधा घंटा काफ़ी है","दवाई नियमित लें, अच्छा महसूस हो तब भी","जाँच डॉक्टर के बताए अनुसार कराते रहें"],
+  careEn:["Cut down on fried food, ghee and butter","Walk daily — half an hour is enough","Take the medicine regularly, even when feeling well","Get tests done as advised by your doctor"],
+  warnHi:["सीने में दर्द, भारीपन या दबाव","चलने पर पिंडलियों में दर्द जो रुकने पर ठीक हो जाए","अचानक कमज़ोरी, बोलने में लड़खड़ाहट या चेहरा लटकना"],
+  warnEn:["Chest pain, heaviness or pressure","Calf pain on walking that settles on resting","Sudden weakness, slurred speech or a drooping face"],
+  match:["cholesterol","high cholesterol","कोलेस्ट्रॉल","lipid","triglycerides"],
+  urgent:true
+ },
+ "लकवा · Stroke":{
+  titleHi:"लकवा (स्ट्रोक)",titleEn:"Stroke",
+  whatHi:"दिमाग़ तक खून पहुँचना अचानक रुक जाना। इसमें हर मिनट कीमती होता है।",
+  whatEn:"Blood flow to the brain stops suddenly. In this, every minute counts.",
+  careHi:["दवाई कभी अपने आप बंद न करें","बी पी और शुगर को काबू में रखें","डॉक्टर के बताए अनुसार फिजियोथेरेपी करते रहें","घर में फिसलन हटाएं, सहारा पकड़कर चलें"],
+  careEn:["Never stop the medicine on your own","Keep blood pressure and sugar under control","Continue physiotherapy as advised by your doctor","Remove slippery surfaces at home and walk with support"],
+  warnHi:["चेहरा एक तरफ़ लटक जाना","एक हाथ या पैर में अचानक कमज़ोरी","बोलने में लड़खड़ाहट या बात समझ न आना","अचानक धुंधला दिखना या बहुत तेज़ सिरदर्द"],
+  warnEn:["One side of the face drooping","Sudden weakness in one arm or leg","Slurred speech, or trouble understanding words","Sudden blurred vision or a very severe headache"],
+  match:["stroke","लकवा","paralysis","पक्षाघात","brain stroke","स्ट्रोक"],
+  urgent:true
+ },
+ "मोतियाबिंद · Cataract":{
+  titleHi:"मोतियाबिंद",titleEn:"Cataract",
+  whatHi:"आँख के लेंस का धीरे-धीरे धुंधला हो जाना। उम्र के साथ यह आम है और ऑपरेशन से ठीक होता है।",
+  whatEn:"The lens of the eye slowly becomes cloudy. It is common with age and is treated with surgery.",
+  careHi:["तेज़ धूप में चश्मा पहनें","घर में अच्छी रोशनी रखें ताकि ठोकर न लगे","रात में गाड़ी चलाने से बचें","आँखों की जाँच नियमित कराते रहें"],
+  careEn:["Wear glasses in bright sunlight","Keep the house well lit to avoid tripping","Avoid driving at night","Get your eyes checked regularly"],
+  warnHi:["रोशनी तेज़ी से कम होती जाए","रोशनी के चारों ओर गोल घेरे दिखना","एक आँख से दोहरा दिखाई देना","आँख में दर्द और लाली"],
+  warnEn:["Vision getting worse quickly","Seeing rings around lights","Double vision in one eye","Pain and redness in the eye"],
+  match:["cataract","मोतियाबिंद","सफेद मोतिया"]
+ },
+ "काला मोतिया · Glaucoma":{
+  titleHi:"काला मोतिया (ग्लूकोमा)",titleEn:"Glaucoma",
+  whatHi:"आँख के अंदर दबाव बढ़ जाना, जिससे नज़र धीरे-धीरे कम होती है। एक बार गई नज़र वापस नहीं आती, इसलिए ड्रॉप रोज़ ज़रूरी है।",
+  whatEn:"Pressure builds up inside the eye and slowly reduces vision. Lost vision does not come back, so the daily drops matter.",
+  careHi:["आँख की ड्रॉप रोज़ एक ही समय पर डालें — कभी न छोड़ें","सिर नीचे करके भारी काम न करें","ड्रॉप डालने के बाद एक मिनट आँख बंद रखें","जाँच डॉक्टर के बताए अनुसार कराते रहें"],
+  careEn:["Put the eye drops at the same time daily — never skip them","Avoid heavy work with the head bent down","Keep the eye closed for a minute after putting drops","Get checked as advised by your doctor"],
+  warnHi:["आँख में तेज़ दर्द के साथ सिरदर्द और उल्टी","अचानक बहुत धुंधला दिखना","रोशनी के चारों ओर इंद्रधनुषी घेरे दिखना"],
+  warnEn:["Severe eye pain with headache and vomiting","Sudden severe blurring of vision","Seeing rainbow coloured rings around lights"],
+  match:["glaucoma","काला मोतिया","ग्लूकोमा","eye pressure"],
+  urgent:true
+ },
+ "हड्डियों की कमज़ोरी · Osteoporosis":{
+  titleHi:"हड्डियों की कमज़ोरी",titleEn:"Osteoporosis",
+  whatHi:"हड्डियाँ कमज़ोर और भुरभुरी हो जाना, जिससे हल्की चोट में भी वे टूट सकती हैं।",
+  whatEn:"Bones become weak and brittle, so they can break even with a minor fall.",
+  careHi:["कैल्शियम और विटामिन डी डॉक्टर की सलाह अनुसार लें","रोज़ थोड़ी देर धूप में बैठें","घर से फिसलन और ढीले कालीन हटाएं","बाथरूम में पकड़ने के लिए सहारा लगवाएं"],
+  careEn:["Take calcium and vitamin D as advised by your doctor","Sit in the sunlight for a short while daily","Remove slippery floors and loose rugs at home","Fit a grab bar in the bathroom"],
+  warnHi:["गिरने के बाद दर्द और हिलने-डुलने में तकलीफ़","कमर में अचानक तेज़ दर्द","कद घटना या कमर आगे की ओर झुकना"],
+  warnEn:["Pain and difficulty moving after a fall","Sudden severe back pain","Losing height or the back bending forward"],
+  match:["osteoporosis","हड्डियों की कमज़ोरी","weak bones","bone weakness","ऑस्टियोपोरोसिस"]
+ },
+ "प्रोस्टेट · Prostate":{
+  titleHi:"प्रोस्टेट बढ़ना",titleEn:"Prostate enlargement",
+  whatHi:"पुरुषों में उम्र के साथ प्रोस्टेट ग्रंथि का बढ़ जाना, जिससे पेशाब में तकलीफ़ होती है।",
+  whatEn:"In men, the prostate gland enlarges with age and causes difficulty in passing urine.",
+  careHi:["रात को सोने से पहले कम पानी पिएं","पेशाब आने पर रोककर न रखें","चाय और कॉफ़ी कम करें","दवाई नियमित लें और जाँच कराते रहें"],
+  careEn:["Drink less water just before bedtime","Do not hold in urine when you feel the urge","Cut down on tea and coffee","Take the medicine regularly and keep getting checked"],
+  warnHi:["पेशाब बिल्कुल बंद हो जाना","पेशाब में खून आना","बुखार के साथ पेशाब में जलन और कमर दर्द"],
+  warnEn:["Being completely unable to pass urine","Blood in the urine","Burning urine with fever and back pain"],
+  match:["prostate","प्रोस्टेट","bph","prostate enlargement","पेशाब की तकलीफ"],
+  urgent:true
+ },
+ "खून की कमी · Anaemia":{
+  titleHi:"खून की कमी",titleEn:"Anaemia",
+  whatHi:"खून में हीमोग्लोबिन कम हो जाना, जिससे थकान और कमज़ोरी रहती है।",
+  whatEn:"Low haemoglobin in the blood, which causes tiredness and weakness.",
+  careHi:["हरी सब्ज़ी, दालें और गुड़ खाने में रखें","आयरन की दवाई खाने के बाद लें","चाय खाने के तुरंत बाद न पिएं","खून की जाँच नियमित कराते रहें"],
+  careEn:["Include green vegetables, pulses and jaggery in meals","Take iron medicine after food","Do not drink tea right after a meal","Get blood tests done regularly"],
+  warnHi:["बहुत ज़्यादा थकान और चक्कर आना","थोड़ा चलने पर भी साँस फूलना","मल का काला रंग आना","हाथ-पैर बहुत ठंडे और चेहरे पर पीलापन"],
+  warnEn:["Severe tiredness and dizziness","Breathlessness even on walking a little","Black coloured stools","Very cold hands and feet with a pale face"],
+  match:["anaemia","anemia","खून की कमी","low haemoglobin","low hemoglobin","एनीमिया"]
+ },
+ "कब्ज़ · Constipation":{
+  titleHi:"कब्ज़",titleEn:"Constipation",
+  whatHi:"पेट ठीक से साफ़ न होना। बुज़ुर्गों में कम चलने और कम पानी से यह आम है।",
+  whatEn:"Difficulty in passing stools. It is common in older people who move less and drink less water.",
+  careHi:["दिन भर पानी ज़्यादा पिएं","सब्ज़ी, फल और दलिया जैसा रेशेदार खाना लें","रोज़ थोड़ा चलें","रोज़ एक ही समय शौच जाने की आदत बनाएं"],
+  careEn:["Drink more water through the day","Eat fibre — vegetables, fruit and porridge","Walk a little every day","Try to go to the toilet at the same time daily"],
+  warnHi:["कई दिन से पेट बिल्कुल साफ़ न होना और पेट फूलना","मल में खून आना","उल्टी के साथ तेज़ पेट दर्द","बिना वजह वज़न घटना"],
+  warnEn:["No bowel movement for several days with a bloated stomach","Blood in the stools","Severe stomach pain with vomiting","Losing weight without reason"],
+  match:["constipation","कब्ज़","कब्ज","piles constipation","बवासीर कब्ज"]
+ },
+ "नींद की तकलीफ़ · Sleep problems":{
+  titleHi:"नींद की तकलीफ़",titleEn:"Sleep problems",
+  whatHi:"रात को नींद न आना या बार-बार नींद टूटना। उम्र के साथ नींद हल्की हो जाती है।",
+  whatEn:"Trouble falling asleep, or waking repeatedly at night. Sleep becomes lighter with age.",
+  careHi:["रोज़ एक ही समय सोएं और उठें","दोपहर में लंबी नींद न लें","शाम के बाद चाय-कॉफ़ी न लें","सोने से पहले मोबाइल और टीवी बंद कर दें"],
+  careEn:["Sleep and wake at the same time every day","Avoid long afternoon naps","No tea or coffee after the evening","Switch off the phone and TV before bed"],
+  warnHi:["नींद की दवाई रोज़ ज़रूरी लगने लगे","दिन भर बहुत नींद और थकान रहना","सोते समय साँस रुकना या बहुत तेज़ खर्राटे","रात में बेचैनी के साथ सीने में तकलीफ़"],
+  warnEn:["Feeling you need a sleeping pill every night","Feeling very sleepy and tired all day","Breathing stopping during sleep, or very loud snoring","Night-time restlessness with chest discomfort"],
+  match:["sleep problems","insomnia","नींद की तकलीफ","नींद न आना","sleeplessness","अनिद्रा"]
+ },
+ "कमर दर्द · Back pain":{
+  titleHi:"कमर दर्द",titleEn:"Back pain",
+  whatHi:"कमर या पीठ के निचले हिस्से में दर्द और अकड़न।",
+  whatEn:"Pain and stiffness in the lower back.",
+  careHi:["भारी वज़न उठाने से बचें","झुककर नहीं, घुटने मोड़कर कोई चीज़ उठाएं","ज़्यादा नरम गद्दे पर न सोएं","डॉक्टर के बताए अनुसार हल्की कसरत करें"],
+  careEn:["Avoid lifting heavy weights","Bend the knees, not the back, when picking something up","Do not sleep on a very soft mattress","Do gentle exercises as advised by your doctor"],
+  warnHi:["दर्द के साथ पैर सुन्न होना या झुनझुनी","पेशाब या शौच पर काबू न रहना","गिरने या चोट लगने के बाद दर्द","बुखार के साथ कमर दर्द"],
+  warnEn:["Pain with numbness or tingling in the leg","Losing control of urine or stools","Pain after a fall or injury","Back pain along with fever"],
+  match:["back pain","कमर दर्द","lower back pain","पीठ दर्द","slip disc","sciatica"],
+  urgent:true
+ },
+ "बवासीर · Piles":{
+  titleHi:"बवासीर (पाइल्स)",titleEn:"Piles",
+  whatHi:"मलद्वार के पास की नसों में सूजन, जिससे दर्द और खून आ सकता है।",
+  whatEn:"Swollen veins near the back passage, which can cause pain and bleeding.",
+  careHi:["कब्ज़ बिल्कुल न होने दें","पानी और रेशेदार खाना ज़्यादा लें","शौच के समय ज़ोर न लगाएं","गर्म पानी में थोड़ी देर बैठने से आराम मिलता है"],
+  careEn:["Do not let constipation build up","Take more water and fibre in food","Do not strain while passing stools","Sitting in warm water for a while gives relief"],
+  warnHi:["बहुत ज़्यादा खून आना","बहुत दर्द और सूजन","खून आने के साथ चक्कर और कमज़ोरी"],
+  warnEn:["Heavy bleeding","Severe pain and swelling","Bleeding along with dizziness and weakness"],
+  match:["piles","बवासीर","haemorrhoids","hemorrhoids","पाइल्स","fissure"]
+ },
+ "टी बी · Tuberculosis":{
+  titleHi:"टी बी (क्षय रोग)",titleEn:"Tuberculosis",
+  whatHi:"एक कीटाणु से होने वाली बीमारी, ज़्यादातर फेफड़ों में। पूरा दवाई कोर्स लेने से यह ठीक हो जाती है।",
+  whatEn:"An infection caused by bacteria, usually in the lungs. It is curable if the full course of medicine is taken.",
+  careHi:["दवाई का पूरा कोर्स लें — बीच में बिल्कुल न छोड़ें","खाँसते समय मुँह ढकें","कमरे में हवा आने-जाने दें","पौष्टिक खाना लें और वज़न पर नज़र रखें"],
+  careEn:["Complete the full course of medicine — never stop midway","Cover the mouth while coughing","Keep the room well ventilated","Eat nourishing food and watch your weight"],
+  warnHi:["खाँसी के साथ खून आना","तेज़ बुखार और रात को पसीना आना","वज़न तेज़ी से घटना","साँस फूलना या सीने में दर्द"],
+  warnEn:["Coughing up blood","High fever and night sweats","Rapid weight loss","Breathlessness or chest pain"],
+  match:["tb","tuberculosis","टी बी","क्षय रोग","टीबी"]
+ },
+ "पेशाब में इन्फेक्शन · Urine infection":{
+  titleHi:"पेशाब में इन्फेक्शन",titleEn:"Urine infection",
+  whatHi:"पेशाब की नली या मूत्राशय में कीटाणु का संक्रमण। बुज़ुर्गों में यह बार-बार हो सकता है।",
+  whatEn:"An infection in the urinary tract or bladder. It can happen repeatedly in older people.",
+  careHi:["दिन भर पानी खूब पिएं","पेशाब आने पर रोककर न रखें","साफ़-सफ़ाई का ध्यान रखें","दवाई का कोर्स पूरा करें, आराम मिलने पर भी"],
+  careEn:["Drink plenty of water through the day","Do not hold in urine","Keep the area clean","Finish the full course of medicine, even after feeling better"],
+  warnHi:["बुखार के साथ कमर या पेट में दर्द","पेशाब में खून आना","उल्टी और बहुत कमज़ोरी","अचानक भ्रम या बहकी-बहकी बातें"],
+  warnEn:["Fever with back or stomach pain","Blood in the urine","Vomiting and severe weakness","Sudden confusion or disoriented talk"],
+  match:["urine infection","uti","पेशाब में इन्फेक्शन","urinary infection","पेशाब में जलन"]
+ },
+ "माइग्रेन · Migraine":{
+  titleHi:"माइग्रेन (आधा सिरदर्द)",titleEn:"Migraine",
+  whatHi:"बार-बार होने वाला तेज़ सिरदर्द, अक्सर सिर के एक तरफ़, कभी-कभी उल्टी के साथ।",
+  whatEn:"Repeated severe headaches, often on one side of the head, sometimes with vomiting.",
+  careHi:["नींद पूरी लें और समय पर सोएं","तेज़ धूप, तेज़ रोशनी और शोर से बचें","खाना समय पर लें — भूखे न रहें","दिन भर पानी पीते रहें"],
+  careEn:["Get enough sleep and sleep on time","Avoid bright sunlight, harsh light and loud noise","Eat meals on time — do not stay hungry","Keep drinking water through the day"],
+  warnHi:["अब तक का सबसे तेज़ सिरदर्द जो अचानक शुरू हो","बुखार और गर्दन अकड़ने के साथ सिरदर्द","सिरदर्द के साथ बोलने या देखने में दिक्कत","सिर पर चोट लगने के बाद सिरदर्द"],
+  warnEn:["The worst headache of your life, starting suddenly","Headache with fever and a stiff neck","Headache with trouble speaking or seeing","Headache after a head injury"],
+  match:["migraine","माइग्रेन","headache","सिरदर्द","आधा सीसी"],
+  urgent:true
+ },
+ "भूलने की तकलीफ़ · Memory problems":{
+  titleHi:"भूलने की तकलीफ़",titleEn:"Memory problems",
+  whatHi:"उम्र के साथ याददाश्त कमज़ोर होना। रोज़ का काम एक ही क्रम में रखने से बहुत मदद मिलती है।",
+  whatEn:"Memory becoming weaker with age. Keeping a steady daily routine helps a great deal.",
+  careHi:["रोज़ के काम एक ही क्रम और समय पर रखें","दवाई दिन के हिसाब से डिब्बी में अलग रखें","ज़रूरी नाम और नंबर लिखकर पास रखें","परिवार और पड़ोसियों से मिलते-जुलते रहें"],
+  careEn:["Keep daily tasks in the same order and at the same time","Keep medicines sorted day-wise in a pill box","Write down important names and numbers and keep them handy","Keep meeting family and neighbours regularly"],
+  warnHi:["रास्ता या अपना घर भूल जाना","दवाई बार-बार लेना या पूरी तरह भूल जाना","अचानक बहुत ज़्यादा भ्रम या घबराहट","खुद की देखभाल न कर पाना"],
+  warnEn:["Forgetting the way home, or your own house","Taking medicine repeatedly, or forgetting it entirely","Sudden severe confusion or agitation","Not being able to look after oneself"],
+  match:["memory problems","dementia","भूलने की बीमारी","याददाश्त","alzheimer","डिमेंशिया","memory loss"]
  }
 };
 
@@ -715,26 +924,85 @@ function getSelectedConditions(){
   try{const p=JSON.parse(saved);return p.conditions||[];}catch(e){return [];}
 }
 
+function normCond(s){
+  return String(s).toLowerCase().replace(/[^a-z0-9\u0900-\u097f]+/g,' ').replace(/\s+/g,' ').trim();
+}
+
+// Finds written guidance for a condition the user typed themselves.
+// Exact match first, then whole-phrase match against each condition's
+// alias list. Never partial-word, so "piles" cannot match something else.
+function findConditionInfo(key){
+  if(CONDITION_INFO[key])return CONDITION_INFO[key];
+  const n=normCond(key);
+  if(!n)return null;
+  for(const k in CONDITION_INFO){
+    const info=CONDITION_INFO[k];
+    const terms=(info.match||[]).concat([k,info.titleHi,info.titleEn]);
+    for(let i=0;i<terms.length;i++){
+      if(normCond(terms[i])===n)return info;
+    }
+  }
+  for(const k in CONDITION_INFO){
+    const info=CONDITION_INFO[k];
+    const terms=info.match||[];
+    for(let i=0;i<terms.length;i++){
+      const t=normCond(terms[i]);
+      if(t.length<4)continue;
+      if((' '+n+' ').indexOf(' '+t+' ')!==-1)return info;
+    }
+  }
+  return null;
+}
+
+function escHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let condOrder=[];
+
 function updateConditionsCard(){
   const list=document.getElementById("condList");
   if(!list)return;
-  const picked=getSelectedConditions().filter(c=>CONDITION_INFO[c]);
+  const picked=getSelectedConditions();
+  condOrder=picked;
   if(picked.length===0){
     list.innerHTML='<div class="cond-empty">\u0905\u092a\u0928\u0940 \u092c\u0940\u092e\u093e\u0930\u093f\u092f\u093e\u0901 \u091c\u094b\u0921\u093c\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u090a\u092a\u0930 \u092a\u094d\u0930\u094b\u092b\u093c\u093e\u0907\u0932 \u092e\u0947\u0902 \u091c\u093e\u090f\u0902\u0964<br><span class="en-text">Add your conditions in the Profile above to see guidance here.</span></div>';
     return;
   }
-  list.innerHTML=picked.map(function(key){
-    const info=CONDITION_INFO[key];
-    const label=currentLang==='hi'?info.titleHi:info.titleEn;
-    return '<button class="cond-btn" onclick="showCondition(\''+key+'\')"><span>'+label+'</span><span class="arrow">\u203a</span></button>';
+  list.innerHTML=picked.map(function(key,i){
+    const info=findConditionInfo(key);
+    const known=!!info;
+    const label=known?(currentLang==='hi'?info.titleHi:info.titleEn):key;
+    const cls=known?'cond-btn':'cond-btn cond-btn-plain';
+    const right=known
+      ? '<span class="arrow">\u203a</span>'
+      : '<span class="tag">'+(currentLang==='hi'?'\u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0928\u0939\u0940\u0902':'no guidance')+'</span>';
+    return '<button class="'+cls+'" onclick="showConditionAt('+i+')"><span>'+escHtml(label)+'</span>'+right+'</button>';
   }).join("");
 }
 
+function showConditionAt(i){
+  if(condOrder[i]!==undefined)showCondition(condOrder[i]);
+}
+
 function showCondition(key){
-  const info=CONDITION_INFO[key];
-  if(!info)return;
+  const info=findConditionInfo(key);
   currentCondition=key;
   const hi=currentLang==='hi';
+  if(!info){
+    document.getElementById("condSheetTitle").textContent=key;
+    document.getElementById("condSheetBody").innerHTML=
+      '<div class="cond-block"><div class="cond-body">'
+      +(hi?'\u0907\u0938 \u092c\u0940\u092e\u093e\u0930\u0940 \u0915\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0905\u092d\u0940 \u0907\u0938 \u0910\u092a \u092e\u0947\u0902 \u0928\u0939\u0940\u0902 \u0939\u0948\u0964'
+          :'This app does not have guidance for this condition yet.')
+      +'</div></div>'
+      +'<div class="cond-note">'
+      +(hi?'\u0907\u0938\u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u0905\u092a\u0928\u0947 \u0921\u0949\u0915\u094d\u091f\u0930 \u0938\u0947 \u092a\u0942\u091b\u0947\u0902\u0964 \u0926\u0935\u093e\u0908 \u0914\u0930 \u0907\u0932\u093e\u091c \u0939\u092e\u0947\u0936\u093e \u0921\u0949\u0915\u094d\u091f\u0930 \u0915\u0940 \u0938\u0932\u093e\u0939 \u0938\u0947 \u0939\u0940 \u0915\u0930\u0947\u0902\u0964'
+          :'Please ask your doctor about this. Always follow your doctor for medicine and treatment.')
+      +'</div>';
+    document.getElementById("condPopup").style.display="flex";
+    return;
+  }
   document.getElementById("condSheetTitle").textContent=hi?info.titleHi:info.titleEn;
   const care=(hi?info.careHi:info.careEn).map(function(t){return '<div class="cond-li"><span class="dot">\u2022</span><span>'+t+'</span></div>';}).join("");
   const warn=(hi?info.warnHi:info.warnEn).map(function(t){return '<div class="cond-li"><span class="dot">\u2022</span><span>'+t+'</span></div>';}).join("");
@@ -756,8 +1024,15 @@ function closeCondition(){
 
 function speakCondition(){
   if(!currentCondition)return;
-  const info=CONDITION_INFO[currentCondition];
+  const info=findConditionInfo(currentCondition);
   const hi=currentLang==='hi';
+  if(!info){
+    speak(currentCondition+'\u0964 '
+      +(hi?'\u0907\u0938 \u092c\u0940\u092e\u093e\u0930\u0940 \u0915\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0905\u092d\u0940 \u0907\u0938 \u0910\u092a \u092e\u0947\u0902 \u0928\u0939\u0940\u0902 \u0939\u0948\u0964 \u0905\u092a\u0928\u0947 \u0921\u0949\u0915\u094d\u091f\u0930 \u0938\u0947 \u092a\u0942\u091b\u0947\u0902\u0964'
+          :'This app does not have guidance for this condition yet. Please ask your doctor.'),
+      currentLang);
+    return;
+  }
   let t=(hi?info.titleHi:info.titleEn)+'\u0964 ';
   t+=(hi?info.whatHi:info.whatEn)+' ';
   t+=(hi?'\u0930\u094b\u091c\u093c\u093e\u0928\u093e \u0927\u094d\u092f\u093e\u0928 \u0930\u0916\u0947\u0902\u0964 ':'Daily care. ')+(hi?info.careHi:info.careEn).join('\u0964 ')+'\u0964 ';
